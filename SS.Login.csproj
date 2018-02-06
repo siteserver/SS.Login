@@ -83,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="appveyor.yml" />
-    <None Include="assets\css\README.md" />
     <None Include="assets\plugin-utils\fonts\fontawesome-webfont.eot" />
     <None Include="assets\plugin-utils\fonts\fontawesome-webfont.ttf" />
     <None Include="assets\plugin-utils\fonts\fontawesome-webfont.woff" />
@@ -92,21 +91,20 @@
     <None Include="assets\plugin-utils\fonts\ionicons.eot" />
     <None Include="assets\plugin-utils\fonts\ionicons.ttf" />
     <None Include="assets\plugin-utils\fonts\ionicons.woff" />
+    <None Include="assets\README.md" />
     <None Include="packages.config" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\css\div.bootstrap.min.css" />
-    <Content Include="assets\css\style.css" />
     <Content Include="assets\images\login_qq.png" />
     <Content Include="assets\images\login_weibo.png" />
     <Content Include="assets\images\login_weixin.png" />
-    <Content Include="assets\js\ajaxUpload.js" />
+    <Content Include="assets\images\times.png" />
+    <Content Include="assets\js\axios-0.17.1.min.js" />
     <Content Include="assets\js\device.min.js" />
-    <Content Include="assets\js\jquery.imgareaselect.min.js" />
-    <Content Include="assets\js\jquery.js" />
     <Content Include="assets\js\jquery.min.js" />
-    <Content Include="assets\js\sweetalert.min.js" />
-    <Content Include="assets\js\vue.min.js" />
+    <Content Include="assets\js\vee-validate-2.0.3.js" />
+    <Content Include="assets\js\vue-2.1.10.min.js" />
     <Content Include="assets\plugin-utils\css\bootstrap.min.css" />
     <Content Include="assets\plugin-utils\css\font-awesome.min.css" />
     <Content Include="assets\plugin-utils\css\ionicons.min.css" />
@@ -116,6 +114,17 @@
     <Content Include="assets\plugin-utils\js\bootstrap.min.js" />
     <Content Include="assets\plugin-utils\js\jquery.min.js" />
     <Content Include="assets\plugin-utils\js\plugin-utils.js" />
+    <Content Include="assets\script.js" />
+    <Content Include="assets\style.css" />
+    <Content Include="assets\style.min.css" />
+    <Content Include="assets\template.html" />
+    <Content Include="assets\template.min.html" />
+    <Content Include="logo.png" />
+    <Content Include="PageOAuth.aspx" />
+    <Content Include="PageOAuthQq.aspx" />
+    <Content Include="PageOAuthWeibo.aspx" />
+    <Content Include="PageOAuthWeixin.aspx" />
+    <Content Include="PageSettings.aspx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
