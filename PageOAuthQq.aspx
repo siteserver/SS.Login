@@ -1,4 +1,4 @@
-<%@ Page Language="C#" Inherits="SS.OAuth.Pages.PageOAuthQq" %>
+<%@ Page Language="C#" Inherits="SS.Login.Pages.PageOAuthQq" %>
   <!DOCTYPE html>
   <html>
 

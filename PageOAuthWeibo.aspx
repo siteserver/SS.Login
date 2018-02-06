@@ -1,4 +1,4 @@
-<%@ Page Language="C#" Inherits="SS.OAuth.Pages.PageOAuthWeibo" %>
+<%@ Page Language="C#" Inherits="SS.Login.Pages.PageOAuthWeibo" %>
   <!DOCTYPE html>
   <html>
 

@@ -103,6 +103,7 @@
     <Content Include="assets\js\axios-0.17.1.min.js" />
     <Content Include="assets\js\device.min.js" />
     <Content Include="assets\js\jquery.min.js" />
+    <Content Include="assets\js\sweetalert.min.js" />
     <Content Include="assets\js\vee-validate-2.0.3.js" />
     <Content Include="assets\js\vue-2.1.10.min.js" />
     <Content Include="assets\plugin-utils\css\bootstrap.min.css" />

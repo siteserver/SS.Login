@@ -1,4 +1,4 @@
-<%@ Page Language="C#" Inherits="SS.OAuth.Pages.PageOAuthWeixin" %>
+<%@ Page Language="C#" Inherits="SS.Login.Pages.PageOAuthWeixin" %>
   <!DOCTYPE html>
   <html>
 
