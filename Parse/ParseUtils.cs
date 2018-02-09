@@ -3,10 +3,8 @@ using SS.Login.Core;
 
 namespace SS.Login.Parse
 {
-    public class ParseUtils
+    public static class ParseUtils
     {
-        private ParseUtils() { }
-
         public const string OnClickLogin = "$authVue.openLoginModal()";
         public const string OnClickLoginAll = "$authVue.openSocialModal()";
         public const string OnClickRegister = "$authVue.openRegisterModal()";

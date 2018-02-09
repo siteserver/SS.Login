@@ -87,10 +87,6 @@ namespace SS.Login
                 return StlLogout.Logout(request);
             }
 
-            if (Utils.EqualsIgnoreCase(id, nameof(ApiJsonActionsPost.LoadConfig)))
-            {
-                return ApiJsonActionsPost.LoadConfig(request);
-            }
             if (Utils.EqualsIgnoreCase(id, nameof(ApiJsonActionsPost.ResetPassword)))
             {
                 return ApiJsonActionsPost.ResetPassword(request);

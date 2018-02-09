@@ -4,7 +4,7 @@
     only:
       - master
 
-  version: 1.1.0
+  version: 1.1.{build}
 
   assembly_info:
     patch: true
@@ -93,9 +93,8 @@
       artifact: /.*\.nupkg/
 
   notifications:
-
     - provider: Webhook
-      url: http://api.siteserver.cn/v1.0/packages/actions/publish/SS.Login?isNightly=true&version=1.2.33-beta
+      url: http://api.siteserver.cn/v1.0/packages/SS.Login?isNightly=true
       headers:
         X-SiteServer-ApiKey:
           secure: BgJi7I52wZsaeoldjE1txzqjNWIqDwUUYzH5VFoVrZUW2NlSocZlSl1uXKE2PQut

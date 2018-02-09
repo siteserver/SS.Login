@@ -11,22 +11,6 @@ namespace SS.Login.Api
             return $"SS.Home.Api.ActionsPost.SendSms.{mobile}.Code";
         }
 
-        public static object LoadConfig(IRequest request)
-        {
-            var systemConfigInfo = Main.Instance.ConfigApi.SystemConfigInfo;
-            var homeConfig = Utils.GetConfigInfo();
-
-            var user = Main.Instance.UserApi.GetUserInfoByUserName(request.UserName);
-
-            return new
-            {
-                systemConfigInfo.IsUserRegistrationAllowed,
-                systemConfigInfo.IsUserFindPassword,
-                homeConfig.HomeUrl,
-                User = user
-            };
-        }
-
         public static object ResetPassword(IRequest request)
         {
             if (!request.IsUserLoggin)
