@@ -1,17 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 using SiteServer.Plugin;
 using SS.Login.Api;
 using SS.Login.Core;
+using SS.Login.Models;
 using SS.Login.Pages;
 using SS.Login.Parse;
 using SS.Login.Provider;
 
 namespace SS.Login
 {
-    public class Main : PluginBase
+    public class LoginPlugin : PluginBase
     {
-        public static Main Instance { get; private set; }
+        public const string PluginId = "SS.Login";
+
+        public string GetOAuthLoginUrl(OAuthType oAuthType, string redirectUrl)
+        {
+            return $"{StlLogin.GetOAuthApiUrl(oAuthType)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
+        }
+
+        internal static LoginPlugin Instance { get; private set; }
 
         public override void Startup(IService service)
         {
@@ -51,11 +60,11 @@ namespace SS.Login
             {
                 if (Utils.EqualsIgnoreCase(args.Action, nameof(StlLogin.OAuth)))
                 {
-                    return StlLogin.OAuth(args.Request, args.Id);
+                    return StlLogin.OAuth(args.Request, OAuthType.Parse(args.Id));
                 }
                 if (Utils.EqualsIgnoreCase(args.Action, nameof(StlLogin.OAuthRedirect)))
                 {
-                    return StlLogin.OAuthRedirect(args.Request, args.Id);
+                    return StlLogin.OAuthRedirect(args.Request, OAuthType.Parse(args.Id));
                 }
                 if (Utils.EqualsIgnoreCase(args.Action, nameof(ApiHttpGet.Captcha)))
                 {

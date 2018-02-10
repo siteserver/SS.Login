@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SS.Login.Model
+namespace SS.Login.Models
 {
     public class ConfigInfo
     {

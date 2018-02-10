@@ -5,7 +5,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using SiteServer.Plugin;
 using SS.Login.Core;
-using SS.Login.Model;
+using SS.Login.Models;
 
 namespace SS.Login.Pages
 {
@@ -19,7 +19,7 @@ namespace SS.Login.Pages
 
         public void Page_Load(object sender, EventArgs e)
         {
-            if (!Main.Instance.AdminApi.IsPluginAuthorized)
+            if (!LoginPlugin.Instance.AdminApi.IsPluginAuthorized)
             {
                 HttpContext.Current.Response.Write("<h1>未授权访问</h1>");
                 HttpContext.Current.Response.End();
@@ -66,7 +66,7 @@ namespace SS.Login.Pages
             _configInfo.RegisterFields = registerFields;
             _configInfo.RegisterSuccessMessage = TbRegisterSuccessMessage.Text;
 
-            Main.Instance.ConfigApi.SetConfig(0, _configInfo);
+            LoginPlugin.Instance.ConfigApi.SetConfig(0, _configInfo);
 
             LtlMessage.Text = Utils.GetMessageHtml("用户中心设置修改成功！", true);
         }

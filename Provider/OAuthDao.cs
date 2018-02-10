@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using SiteServer.Plugin;
-using SS.Login.Model;
+using SS.Login.Models;
 
 namespace SS.Login.Provider
 {
@@ -35,8 +35,8 @@ namespace SS.Login.Provider
             }
         };
 
-        private static string ConnectionString => Main.Instance.ConnectionString;
-        private static IDataApi DataApi => Main.Instance.DataApi;
+        private static string ConnectionString => LoginPlugin.Instance.ConnectionString;
+        private static IDataApi DataApi => LoginPlugin.Instance.DataApi;
 
         public static int Insert(OAuthInfo loginInfo)
         {

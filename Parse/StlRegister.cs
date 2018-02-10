@@ -12,7 +12,7 @@ namespace SS.Login.Parse
 
         public static string GetApiUrlRegister()
         {
-            return Main.Instance.PluginApi.GetPluginApiUrl("actions", nameof(Register));
+            return LoginPlugin.Instance.PluginApi.GetPluginApiUrl("actions", nameof(Register));
         }
 
         public static object Register(IRequest request)
@@ -23,14 +23,14 @@ namespace SS.Login.Parse
             var mobile = request.GetPostString("mobile");
             var password = request.GetPostString("password");
 
-            var userInfo = Main.Instance.UserApi.NewInstance();
+            var userInfo = LoginPlugin.Instance.UserApi.NewInstance();
             userInfo.UserName = userName;
             userInfo.DisplayName = displayName;
             userInfo.Email = email;
             userInfo.Mobile = mobile;
 
             string errorMessage;
-            if (!Main.Instance.UserApi.Insert(userInfo, password, out errorMessage))
+            if (!LoginPlugin.Instance.UserApi.Insert(userInfo, password, out errorMessage))
             {
                 throw new Exception(errorMessage);
             }
@@ -53,7 +53,7 @@ namespace SS.Login.Parse
                 stlAnchor.Attributes.Add(name, value);
             }
 
-            stlAnchor.InnerHtml = Main.Instance.ParseApi.ParseInnerXml(context.StlElementInnerXml, context);
+            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.ParseInnerXml(context.StlElementInnerXml, context);
             stlAnchor.HRef = "javascript:;";
             stlAnchor.Attributes.Add("onclick", ParseUtils.OnClickRegister);
 

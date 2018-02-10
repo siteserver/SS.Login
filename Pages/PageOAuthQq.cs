@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SS.Login.Core;
-using SS.Login.Model;
+using SS.Login.Models;
 
 namespace SS.Login.Pages
 {
@@ -19,12 +19,12 @@ namespace SS.Login.Pages
 
         public string GetRedirectUrl()
         {
-            return Main.Instance.PluginApi.GetPluginUrl(nameof(PageSettings) + ".aspx");
+            return LoginPlugin.Instance.PluginApi.GetPluginUrl(nameof(PageSettings) + ".aspx");
         }
 
         public void Page_Load(object sender, EventArgs e)
         {
-            if (!Main.Instance.AdminApi.IsPluginAuthorized)
+            if (!LoginPlugin.Instance.AdminApi.IsPluginAuthorized)
             {
                 HttpContext.Current.Response.Write("<h1>未授权访问</h1>");
                 HttpContext.Current.Response.End();
@@ -57,7 +57,7 @@ namespace SS.Login.Pages
             _configInfo.QqAppId = TbAppId.Text;
             _configInfo.QqAppKey = TbAppKey.Text;
 
-            Main.Instance.ConfigApi.SetConfig(0, _configInfo);
+            LoginPlugin.Instance.ConfigApi.SetConfig(0, _configInfo);
 
             Response.Redirect(PageOAuth.GetRedirectUrl());
         }

@@ -28,7 +28,7 @@ namespace SS.Login.Api
             {
                 throw new Exception("确认密码与新密码不一致，请重新输入");
             }
-            if (string.IsNullOrEmpty(password) || !Main.Instance.UserApi.Validate(request.UserName, password, out userName, out errorMessage))
+            if (string.IsNullOrEmpty(password) || !LoginPlugin.Instance.UserApi.Validate(request.UserName, password, out userName, out errorMessage))
             {
                 throw new Exception("原密码输入错误，请重新输入");
             }
@@ -37,7 +37,7 @@ namespace SS.Login.Api
                 throw new Exception("新密码不能与原密码一致，请重新输入");
             }
 
-            if (Main.Instance.UserApi.ChangePassword(request.UserName, newPassword, out errorMessage))
+            if (LoginPlugin.Instance.UserApi.ChangePassword(request.UserName, newPassword, out errorMessage))
             {
                 return new
                 {
@@ -60,7 +60,7 @@ namespace SS.Login.Api
             }
 
             string errorMessage;
-            var isSuccess = Main.Instance.UserApi.ChangePassword(userName, password, out errorMessage);
+            var isSuccess = LoginPlugin.Instance.UserApi.ChangePassword(userName, password, out errorMessage);
 
             return new
             {
@@ -135,11 +135,11 @@ namespace SS.Login.Api
                 var mobile = request.GetPostString("mobile");
                 if (mobile != userInfo.Mobile)
                 {
-                    var exists = Main.Instance.UserApi.IsMobileExists(mobile);
+                    var exists = LoginPlugin.Instance.UserApi.IsMobileExists(mobile);
                     if (!exists)
                     {
                         userInfo.Mobile = mobile;
-                        Main.Instance.UserApi.AddLog(userInfo.UserName, "修改手机", string.Empty);
+                        LoginPlugin.Instance.UserApi.AddLog(userInfo.UserName, "修改手机", string.Empty);
                     }
                     else
                     {
@@ -152,11 +152,11 @@ namespace SS.Login.Api
                 var email = request.GetPostString("email");
                 if (email != userInfo.Email)
                 {
-                    var exists = Main.Instance.UserApi.IsEmailExists(email);
+                    var exists = LoginPlugin.Instance.UserApi.IsEmailExists(email);
                     if (!exists)
                     {
                         userInfo.Email = email;
-                        Main.Instance.UserApi.AddLog(userInfo.UserName, "修改邮箱", string.Empty);
+                        LoginPlugin.Instance.UserApi.AddLog(userInfo.UserName, "修改邮箱", string.Empty);
                     }
                     else
                     {
@@ -165,7 +165,7 @@ namespace SS.Login.Api
                 }
             }
 
-            Main.Instance.UserApi.Update(userInfo);
+            LoginPlugin.Instance.UserApi.Update(userInfo);
             return userInfo;
         }
 
@@ -174,7 +174,7 @@ namespace SS.Login.Api
             var mobile = request.GetPostString("mobile");
             return new
             {
-                Exists = Main.Instance.UserApi.IsMobileExists(mobile)
+                Exists = LoginPlugin.Instance.UserApi.IsMobileExists(mobile)
             };
         }
 
@@ -182,7 +182,7 @@ namespace SS.Login.Api
         {
             var password = request.GetPostString("password");
             string errorMessage;
-            var isCorrect = Main.Instance.UserApi.IsPasswordCorrect(password, out errorMessage);
+            var isCorrect = LoginPlugin.Instance.UserApi.IsPasswordCorrect(password, out errorMessage);
             return new
             {
                 IsCorrect = isCorrect,
@@ -201,7 +201,7 @@ namespace SS.Login.Api
             var token = string.Empty;
             if (isCorrect)
             {
-                var userInfo = Main.Instance.UserApi.GetUserInfoByMobile(mobile);
+                var userInfo = LoginPlugin.Instance.UserApi.GetUserInfoByMobile(mobile);
                 if (userInfo != null)
                 {
                     token = request.GetUserTokenByUserName(userInfo.UserName);

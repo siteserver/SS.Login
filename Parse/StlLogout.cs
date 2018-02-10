@@ -13,7 +13,7 @@ namespace SS.Login.Parse
 
         public static string GetApiUrlLogout()
         {
-            return Main.Instance.PluginApi.GetPluginApiUrl("actions", nameof(Logout));
+            return LoginPlugin.Instance.PluginApi.GetPluginApiUrl("actions", nameof(Logout));
         }
 
         public static object Logout(IRequest request)
@@ -38,7 +38,7 @@ namespace SS.Login.Parse
                 var value = context.StlElementAttributes[name];
                 if (Utils.EqualsIgnoreCase(name, AttributeRedirectUrl))
                 {
-                    redirectUrl = Main.Instance.ParseApi.ParseAttributeValue(value, context);
+                    redirectUrl = LoginPlugin.Instance.ParseApi.ParseAttributeValue(value, context);
                 }
                 else
                 {
@@ -48,10 +48,10 @@ namespace SS.Login.Parse
 
             if (string.IsNullOrEmpty(redirectUrl))
             {
-                redirectUrl = Main.Instance.ParseApi.GetCurrentUrl(context);
+                redirectUrl = LoginPlugin.Instance.ParseApi.GetCurrentUrl(context);
             }
 
-            stlAnchor.InnerHtml = Main.Instance.ParseApi.ParseInnerXml(context.StlElementInnerXml, context);
+            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.ParseInnerXml(context.StlElementInnerXml, context);
             stlAnchor.HRef = "javascript:;";
             stlAnchor.Attributes.Add("onclick", ParseUtils.OnClickLogout);
 

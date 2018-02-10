@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI.HtmlControls;
 using SiteServer.Plugin;
 using SS.Login.Core;
-using SS.Login.Model;
+using SS.Login.Models;
 using SS.Login.Provider;
 
 namespace SS.Login.Parse
@@ -20,29 +20,16 @@ namespace SS.Login.Parse
         public const string AttributeType = "type";
         public const string AttributeRedirectUrl = "redirectUrl";
 
-        public const string TypeWeibo = "weibo";
-        public const string TypeWeixin = "weixin";
-        public const string TypeQq = "qq";
         public const string TypeAll = "all";
 
         public static string GetApiUrlLogin()
         {
-            return Main.Instance.PluginApi.GetPluginApiUrl("actions", nameof(Login));
+            return LoginPlugin.Instance.PluginApi.GetPluginApiUrl("actions", nameof(Login));
         }
 
-        public static string GetApiUrlWeibo()
+        public static string GetOAuthApiUrl(OAuthType type)
         {
-            return Main.Instance.PluginApi.GetPluginApiUrl(nameof(OAuth), TypeWeibo);
-        }
-
-        public static string GetApiUrlWeixin()
-        {
-            return Main.Instance.PluginApi.GetPluginApiUrl(nameof(OAuth), TypeWeixin);
-        }
-
-        public static string GetApiUrlQq()
-        {
-            return Main.Instance.PluginApi.GetPluginApiUrl(nameof(OAuth), TypeQq);
+            return LoginPlugin.Instance.PluginApi.GetPluginApiUrl(nameof(OAuth), type.Value);
         }
 
         public static object Login(IRequest request)
@@ -52,14 +39,14 @@ namespace SS.Login.Parse
 
             string userName;
             string errorMessage;
-            if (!Main.Instance.UserApi.Validate(account, password, out userName, out errorMessage))
+            if (!LoginPlugin.Instance.UserApi.Validate(account, password, out userName, out errorMessage))
             {
-                Main.Instance.UserApi.UpdateLastActivityDateAndCountOfFailedLogin(userName);
+                LoginPlugin.Instance.UserApi.UpdateLastActivityDateAndCountOfFailedLogin(userName);
                 throw new Exception(errorMessage);
             }
 
-            Main.Instance.UserApi.UpdateLastActivityDateAndCountOfLogin(userName);
-            var user = Main.Instance.UserApi.GetUserInfoByUserName(userName);
+            LoginPlugin.Instance.UserApi.UpdateLastActivityDateAndCountOfLogin(userName);
+            var user = LoginPlugin.Instance.UserApi.GetUserInfoByUserName(userName);
 
             request.UserLogin(userName);
 
@@ -69,7 +56,7 @@ namespace SS.Login.Parse
             };
         }
 
-        public static HttpResponseMessage OAuth(IRequest context, string loginType)
+        public static HttpResponseMessage OAuth(IRequest context, OAuthType oAuthType)
         {
             var configInfo = Utils.GetConfigInfo();
             var redirectUrl = context.GetQueryString("redirectUrl");
@@ -80,17 +67,17 @@ namespace SS.Login.Parse
 
             var url = string.Empty;
 
-            if (Utils.EqualsIgnoreCase(loginType, TypeWeibo))
+            if (oAuthType == OAuthType.Weibo)
             {
                 var client = new WeiboClient(configInfo.WeiboAppKey, configInfo.WeiboAppSecret, redirectUrl);
                 url = client.GetAuthorizationUrl();
             }
-            else if (Utils.EqualsIgnoreCase(loginType, TypeWeixin))
+            else if (oAuthType == OAuthType.Weixin)
             {
                 var client = new WeixinClient(configInfo.WeixinAppId, configInfo.WeixinAppSecret, redirectUrl);
                 url = client.GetAuthorizationUrl();
             }
-            else if (Utils.EqualsIgnoreCase(loginType, TypeQq))
+            else if (oAuthType == OAuthType.Qq)
             {
                 var client = new QqClient(configInfo.QqAppId, configInfo.QqAppKey, redirectUrl);
                 url = client.GetAuthorizationUrl();
@@ -111,14 +98,14 @@ namespace SS.Login.Parse
             throw new Exception("类型不正确");
         }
 
-        public static HttpResponseMessage OAuthRedirect(IRequest context, string loginType)
+        public static HttpResponseMessage OAuthRedirect(IRequest context, OAuthType oAuthType)
         {
             var configInfo = Utils.GetConfigInfo();
             var redirectUrl = context.GetQueryString("redirectUrl");
             var code = context.GetQueryString("code");
             var userName = string.Empty;
 
-            if (Utils.EqualsIgnoreCase(loginType, TypeWeibo))
+            if (oAuthType == OAuthType.Weibo)
             {
                 var client = new WeiboClient(configInfo.WeiboAppKey, configInfo.WeiboAppSecret, redirectUrl);
 
@@ -129,28 +116,28 @@ namespace SS.Login.Parse
                 string uniqueId;
                 client.GetUserInfo(code, out name, out screenName, out avatarLarge, out gender, out uniqueId);
 
-                userName = OAuthDao.GetUserName(TypeWeibo, uniqueId);
+                userName = OAuthDao.GetUserName(OAuthType.Weibo.Value, uniqueId);
                 if (string.IsNullOrEmpty(userName))
                 {
-                    var userInfo = Main.Instance.UserApi.NewInstance();
-                    userInfo.UserName = Main.Instance.UserApi.IsUserNameExists(name) ? Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "") : name;
+                    var userInfo = LoginPlugin.Instance.UserApi.NewInstance();
+                    userInfo.UserName = LoginPlugin.Instance.UserApi.IsUserNameExists(name) ? Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "") : name;
                     userInfo.DisplayName = screenName;
                     userInfo.AvatarUrl = avatarLarge;
                     userInfo.Gender = gender;
 
                     string errorMessage;
-                    Main.Instance.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
+                    LoginPlugin.Instance.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
                     userName = userInfo.UserName;
 
                     OAuthDao.Insert(new OAuthInfo
                     {
-                        Source = TypeWeibo,
+                        Source = OAuthType.Weibo.Value,
                         UniqueId = uniqueId,
                         UserName = userName
                     });
                 }
             }
-            else if (Utils.EqualsIgnoreCase(loginType, TypeWeixin))
+            else if (oAuthType == OAuthType.Weixin)
             {
                 var client = new WeixinClient(configInfo.WeixinAppId, configInfo.WeixinAppSecret, redirectUrl);
 
@@ -160,28 +147,28 @@ namespace SS.Login.Parse
                 string unionid;
                 client.GetUserInfo(code, out nickname, out headimgurl, out gender, out unionid);
 
-                userName = OAuthDao.GetUserName(TypeWeixin, unionid);
+                userName = OAuthDao.GetUserName(OAuthType.Weixin.Value, unionid);
                 if (string.IsNullOrEmpty(userName))
                 {
-                    var userInfo = Main.Instance.UserApi.NewInstance();
-                    userInfo.UserName = Main.Instance.UserApi.IsUserNameExists(nickname) ? Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "") : nickname;
+                    var userInfo = LoginPlugin.Instance.UserApi.NewInstance();
+                    userInfo.UserName = LoginPlugin.Instance.UserApi.IsUserNameExists(nickname) ? Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "") : nickname;
                     userInfo.DisplayName = nickname;
                     userInfo.AvatarUrl = headimgurl;
                     userInfo.Gender = gender;
 
                     string errorMessage;
-                    Main.Instance.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
+                    LoginPlugin.Instance.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
                     userName = userInfo.UserName;
 
                     OAuthDao.Insert(new OAuthInfo
                     {
-                        Source = TypeWeixin,
+                        Source = OAuthType.Weixin.Value,
                         UniqueId = unionid,
                         UserName = userName
                     });
                 }
             }
-            else if (Utils.EqualsIgnoreCase(loginType, TypeQq))
+            else if (oAuthType == OAuthType.Qq)
             {
                 var client = new QqClient(configInfo.QqAppId, configInfo.QqAppKey, redirectUrl);
 
@@ -191,22 +178,22 @@ namespace SS.Login.Parse
                 string uniqueId;
                 client.GetUserInfo(code, out displayName, out avatarUrl, out gender, out uniqueId);
 
-                userName = OAuthDao.GetUserName(TypeQq, uniqueId);
+                userName = OAuthDao.GetUserName(OAuthType.Qq.Value, uniqueId);
                 if (string.IsNullOrEmpty(userName))
                 {
-                    var userInfo = Main.Instance.UserApi.NewInstance();
-                    userInfo.UserName = Main.Instance.UserApi.IsUserNameExists(displayName) ? Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "") : displayName;
+                    var userInfo = LoginPlugin.Instance.UserApi.NewInstance();
+                    userInfo.UserName = LoginPlugin.Instance.UserApi.IsUserNameExists(displayName) ? Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "") : displayName;
                     userInfo.DisplayName = displayName;
                     userInfo.AvatarUrl = avatarUrl;
                     userInfo.Gender = gender;
 
                     string errorMessage;
-                    Main.Instance.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
+                    LoginPlugin.Instance.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
                     userName = userInfo.UserName;
 
                     OAuthDao.Insert(new OAuthInfo
                     {
-                        Source = TypeQq,
+                        Source = OAuthType.Qq.Value,
                         UniqueId = uniqueId,
                         UserName = userName
                     });
@@ -245,11 +232,11 @@ namespace SS.Login.Parse
                 var value = context.StlElementAttributes[name];
                 if (Utils.EqualsIgnoreCase(name, AttributeType))
                 {
-                    type = Main.Instance.ParseApi.ParseAttributeValue(value, context);
+                    type = LoginPlugin.Instance.ParseApi.ParseAttributeValue(value, context);
                 }
                 else if (Utils.EqualsIgnoreCase(name, AttributeRedirectUrl))
                 {
-                    redirectUrl = Main.Instance.ParseApi.ParseAttributeValue(value, context);
+                    redirectUrl = LoginPlugin.Instance.ParseApi.ParseAttributeValue(value, context);
                 }
                 else
                 {
@@ -259,23 +246,23 @@ namespace SS.Login.Parse
 
             if (string.IsNullOrEmpty(redirectUrl))
             {
-                redirectUrl = Main.Instance.ParseApi.GetCurrentUrl(context);
+                redirectUrl = LoginPlugin.Instance.ParseApi.GetCurrentUrl(context);
             }
 
 
             var url = string.Empty;
             var onClick = string.Empty;
-            if (Utils.EqualsIgnoreCase(type, TypeWeibo))
+            if (Utils.EqualsIgnoreCase(type, OAuthType.Weibo.Value))
             {
-                url = $"{GetApiUrlWeibo()}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
+                url = $"{GetOAuthApiUrl(OAuthType.Weibo)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
             }
-            else if (Utils.EqualsIgnoreCase(type, TypeWeixin))
+            else if (Utils.EqualsIgnoreCase(type, OAuthType.Weixin.Value))
             {
-                url = $"{GetApiUrlWeixin()}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
+                url = $"{GetOAuthApiUrl(OAuthType.Weixin)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
             }
-            else if (Utils.EqualsIgnoreCase(type, TypeQq))
+            else if (Utils.EqualsIgnoreCase(type, OAuthType.Qq.Value))
             {
-                url = $"{GetApiUrlQq()}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
+                url = $"{GetOAuthApiUrl(OAuthType.Qq)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
             }
             else if (Utils.EqualsIgnoreCase(type, TypeAll))
             {
@@ -292,7 +279,7 @@ namespace SS.Login.Parse
                 stlAnchor.Attributes.Add("onclick", onClick);
             }
 
-            stlAnchor.InnerHtml = Main.Instance.ParseApi.ParseInnerXml(context.StlElementInnerXml, context);
+            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.ParseInnerXml(context.StlElementInnerXml, context);
             return Utils.GetControlRenderHtml(stlAnchor);
         }
     }

@@ -55,9 +55,10 @@
     <Compile Include="Core\Utils.cs" />
     <Compile Include="Core\WeiboClient.cs" />
     <Compile Include="Core\WeixinClient.cs" />
-    <Compile Include="Main.cs" />
-    <Compile Include="Model\ConfigInfo.cs" />
-    <Compile Include="Model\OAuthInfo.cs" />
+    <Compile Include="LoginPlugin.cs" />
+    <Compile Include="Models\ConfigInfo.cs" />
+    <Compile Include="Models\OAuthInfo.cs" />
+    <Compile Include="Models\OAuthType.cs" />
     <Compile Include="Pages\PageOAuth.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

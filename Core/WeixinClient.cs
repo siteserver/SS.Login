@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 using Newtonsoft.Json.Linq;
+using SS.Login.Models;
 using SS.Login.Parse;
 
 namespace SS.Login.Core
@@ -18,7 +19,7 @@ namespace SS.Login.Core
         {
             AppId = appId;
             AppSecret = appSecret;
-            RedirectUrl = $"{Main.Instance.PluginApi.GetPluginApiUrl(nameof(StlLogin.OAuthRedirect), StlLogin.TypeWeixin)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
+            RedirectUrl = $"{LoginPlugin.Instance.PluginApi.GetPluginApiUrl(nameof(StlLogin.OAuthRedirect), OAuthType.Weixin.Value)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
         }
 
         public string GetAuthorizationUrl()

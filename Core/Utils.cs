@@ -11,7 +11,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
 using SiteServer.Plugin;
-using SS.Login.Model;
+using SS.Login.Models;
 
 namespace SS.Login.Core
 {
@@ -21,7 +21,7 @@ namespace SS.Login.Core
 
         public static ConfigInfo GetConfigInfo()
         {
-            return Main.Instance.ConfigApi.GetConfig<ConfigInfo>(0) ?? new ConfigInfo();
+            return LoginPlugin.Instance.ConfigApi.GetConfig<ConfigInfo>(0) ?? new ConfigInfo();
         }
 
         public const char SeparatorChar = '\\';
@@ -199,7 +199,7 @@ namespace SS.Login.Core
 
         public static void WriteText(string fileName, string content)
         {
-            var filePath = Main.Instance.PluginApi.GetPluginPath(fileName);
+            var filePath = LoginPlugin.Instance.PluginApi.GetPluginPath(fileName);
             var file = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
             using (var writer = new StreamWriter(file, Encoding.UTF8))
             {
@@ -404,7 +404,7 @@ namespace SS.Login.Core
                 }
                 else
                 {
-                    xmlDocument.LoadXml(XmlDeclaration + XmlNamespaceStart + Main.Instance.ParseApi.HtmlToXml(element) + XmlNamespaceEnd);
+                    xmlDocument.LoadXml(XmlDeclaration + XmlNamespaceStart + LoginPlugin.Instance.ParseApi.HtmlToXml(element) + XmlNamespaceEnd);
                 }
             }
             catch
@@ -710,7 +710,7 @@ namespace SS.Login.Core
 
         public static string FilterSqlAndXss(string content)
         {
-            return Main.Instance.DataApi.FilterXss(Main.Instance.DataApi.FilterSql(content));
+            return LoginPlugin.Instance.DataApi.FilterXss(LoginPlugin.Instance.DataApi.FilterSql(content));
         }
 
         public static bool IsFileExtenstionAllowed(string sAllowedExt, string sExt)

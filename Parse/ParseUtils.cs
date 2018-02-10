@@ -1,5 +1,6 @@
 ﻿using System;
 using SS.Login.Core;
+using SS.Login.Models;
 
 namespace SS.Login.Parse
 {
@@ -14,8 +15,8 @@ namespace SS.Login.Parse
 
         public static string GetGlobalHtml()
         {
-            var htmlPath = Main.Instance.PluginApi.GetPluginPath("assets/template.html");
-            var assetsUrl = Main.Instance.PluginApi.GetPluginUrl("assets");
+            var htmlPath = LoginPlugin.Instance.PluginApi.GetPluginPath("assets/template.html");
+            var assetsUrl = LoginPlugin.Instance.PluginApi.GetPluginUrl("assets");
             var html = CacheUtils.Get<string>(htmlPath);
             if (html == null)
             {
@@ -36,9 +37,9 @@ authData = {{
     apiUrlRegister: '{StlRegister.GetApiUrlRegister()}',
     apiUrlLogin: '{StlLogin.GetApiUrlLogin()}',
     apiUrlLogout: '{StlLogout.GetApiUrlLogout()}',
-    apiUrlWeixin: '{StlLogin.GetApiUrlWeixin()}?redirectUrl=' + location.href,
-    apiUrlWeibo: '{StlLogin.GetApiUrlWeibo()}?redirectUrl=' + location.href,
-    apiUrlQq: '{StlLogin.GetApiUrlQq()}?redirectUrl=' + location.href,
+    apiUrlWeixin: '{StlLogin.GetOAuthApiUrl(OAuthType.Weixin)}?redirectUrl=' + location.href,
+    apiUrlWeibo: '{StlLogin.GetOAuthApiUrl(OAuthType.Weibo)}?redirectUrl=' + location.href,
+    apiUrlQq: '{StlLogin.GetOAuthApiUrl(OAuthType.Qq)}?redirectUrl=' + location.href,
     registerSuccessMessage: '恭喜，注册用户成功',
     loginRedirectUrl: '?success=true',
     logoutRedirectUrl: '?logout=true',

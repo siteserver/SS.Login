@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json.Linq;
+using SS.Login.Models;
 using SS.Login.Parse;
 
 namespace SS.Login.Core
@@ -19,7 +20,7 @@ namespace SS.Login.Core
         {
             AppKey = appKey;
             AppSecret = appSecret;
-            RedirectUrl = $"{Main.Instance.PluginApi.GetPluginApiUrl(nameof(StlLogin.OAuthRedirect), StlLogin.TypeWeibo)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
+            RedirectUrl = $"{LoginPlugin.Instance.PluginApi.GetPluginApiUrl(nameof(StlLogin.OAuthRedirect), OAuthType.Weibo.Value)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
         }
 
         public string GetAuthorizationUrl()

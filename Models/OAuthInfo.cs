@@ -1,4 +1,4 @@
-namespace SS.Login.Model
+namespace SS.Login.Models
 {
 	public class OAuthInfo
 	{
