@@ -15,6 +15,24 @@ namespace SS.Login
     {
         public const string PluginId = "SS.Login";
 
+        public bool IsOAuthReady(OAuthType oAuthType)
+        {
+            var configInfo = Utils.GetConfigInfo();
+            if (oAuthType == OAuthType.Weibo)
+            {
+                return configInfo.IsWeibo;
+            }
+            if (oAuthType == OAuthType.Weixin)
+            {
+                return configInfo.IsWeixin;
+            }
+            if (oAuthType == OAuthType.Qq)
+            {
+                return configInfo.IsQq;
+            }
+            return false;
+        }
+
         public string GetOAuthLoginUrl(OAuthType oAuthType, string redirectUrl)
         {
             return $"{StlLogin.GetOAuthApiUrl(oAuthType)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
