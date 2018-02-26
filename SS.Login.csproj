@@ -33,8 +33,8 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SiteServer.Plugin, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\SiteServer.Plugin.1.3.0\lib\net45\SiteServer.Plugin.dll</HintPath>
+    <Reference Include="SiteServer.Plugin, Version=1.3.39.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SiteServer.Plugin.1.3.39-beta\lib\net45\SiteServer.Plugin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -83,7 +83,6 @@
     <Compile Include="Provider\OAuthDao.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="appveyor.yml" />
     <None Include="assets\plugin-utils\fonts\fontawesome-webfont.eot" />
     <None Include="assets\plugin-utils\fonts\fontawesome-webfont.ttf" />
     <None Include="assets\plugin-utils\fonts\fontawesome-webfont.woff" />
@@ -94,7 +93,6 @@
     <None Include="assets\plugin-utils\fonts\ionicons.woff" />
     <None Include="assets\README.md" />
     <None Include="packages.config" />
-    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\images\login_qq.png" />
@@ -121,7 +119,6 @@
     <Content Include="assets\style.min.css" />
     <Content Include="assets\template.html" />
     <Content Include="assets\template.min.html" />
-    <Content Include="logo.png" />
     <Content Include="PageOAuth.aspx" />
     <Content Include="PageOAuthQq.aspx" />
     <Content Include="PageOAuthWeibo.aspx" />

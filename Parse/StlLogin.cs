@@ -220,16 +220,16 @@ namespace SS.Login.Parse
             var type = string.Empty;
             var redirectUrl = string.Empty;
 
-            if (!context.BodyCodes.ContainsKey(ParseUtils.GlobalHtmlCodeKey))
+            if (!context.StlPageBody.ContainsKey(ParseUtils.GlobalHtmlCodeKey))
             {
-                context.BodyCodes.Add(ParseUtils.GlobalHtmlCodeKey, ParseUtils.GetGlobalHtml());
+                context.StlPageBody.Add(ParseUtils.GlobalHtmlCodeKey, ParseUtils.GetGlobalHtml());
             }
 
             var stlAnchor = new HtmlAnchor();
 
-            foreach (var name in context.StlElementAttributes.Keys)
+            foreach (var name in context.StlAttributes.Keys)
             {
-                var value = context.StlElementAttributes[name];
+                var value = context.StlAttributes[name];
                 if (Utils.EqualsIgnoreCase(name, AttributeType))
                 {
                     type = LoginPlugin.Instance.ParseApi.ParseAttributeValue(value, context);
@@ -279,7 +279,7 @@ namespace SS.Login.Parse
                 stlAnchor.Attributes.Add("onclick", onClick);
             }
 
-            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.ParseInnerXml(context.StlElementInnerXml, context);
+            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.ParseInnerXml(context.StlInnerXml, context);
             return Utils.GetControlRenderHtml(stlAnchor);
         }
     }
