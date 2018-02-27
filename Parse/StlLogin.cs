@@ -249,27 +249,32 @@ namespace SS.Login.Parse
                 redirectUrl = LoginPlugin.Instance.ParseApi.GetCurrentUrl(context);
             }
 
-
+            var text = string.Empty;
             var url = string.Empty;
             var onClick = string.Empty;
             if (Utils.EqualsIgnoreCase(type, OAuthType.Weibo.Value))
             {
+                text = "微博登录";
                 url = $"{GetOAuthApiUrl(OAuthType.Weibo)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
             }
             else if (Utils.EqualsIgnoreCase(type, OAuthType.Weixin.Value))
             {
+                text = "微信登录";
                 url = $"{GetOAuthApiUrl(OAuthType.Weixin)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
             }
             else if (Utils.EqualsIgnoreCase(type, OAuthType.Qq.Value))
             {
+                text = "QQ登录";
                 url = $"{GetOAuthApiUrl(OAuthType.Qq)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
             }
             else if (Utils.EqualsIgnoreCase(type, TypeAll))
             {
+                text = "一键登录";
                 onClick = ParseUtils.OnClickLoginAll;
             }
             else
             {
+                text = "登录";
                 onClick = ParseUtils.OnClickLogin;
             }
 
@@ -280,6 +285,10 @@ namespace SS.Login.Parse
             }
 
             stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.ParseInnerXml(context.StlInnerXml, context);
+            if (string.IsNullOrWhiteSpace(stlAnchor.InnerHtml))
+            {
+                stlAnchor.InnerHtml = text;
+            }
             return Utils.GetControlRenderHtml(stlAnchor);
         }
     }

@@ -1,212 +1,208 @@
-#lean_overlay {
-  position: fixed;
-  z-index: 100;
-  top: 0px;
-  left: 0px;
-  height: 100%;
-  width: 100%;
-  background: #000;
-  display: none;
-}
-
 div.ss-auth {
-  font-size: 14px;
-  color: #666;
-  position: absolute;
-  width: 330px;
-  height: auto;
-  left: 45%;
-  top: 60px;
-  background: #FFF;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 14px !important;
+  color: #666 !important;
+  position: absolute !important;
+  width: 330px !important;
+  height: auto !important;
+  left: 45% !important;
+  top: 60px !important;
+  background: #FFF !important;
 }
 
 div.ss-auth .btn {
-  padding: 10px 20px;
-  background: #F4F4F2;
+  padding: 10px 20px !important;
+  background: #F4F4F2 !important;
 }
 
 div.ss-auth .btn_red {
-  background: #ED6347;
-  color: #FFF;
+  background: #ED6347 !important;
+  color: #FFF !important;
 }
 
 div.ss-auth .btn:hover {
-  background: #E4E4E2;
+  background: #E4E4E2 !important;
 }
 
 div.ss-auth .btn_red:hover {
-  background: #C12B05;
+  background: #C12B05 !important;
 }
 
 div.ss-auth a.btn {
-  color: #666;
-  text-align: center;
-  text-decoration: none;
+  color: #666 !important;
+  text-align: center !important;
+  text-decoration: none !important;
 }
 
 div.ss-auth a.btn_red {
-  color: #FFF;
+  color: #FFF !important;
 }
 
 div.ss-auth .one_half {
-  width: 50%;
-  display: block;
-  float: left;
+  width: 50% !important;
+  display: block !important;
+  float: left !important;
 }
 
 div.ss-auth .one_half.last {
-  width: 45%;
-  margin-left: 5%;
+  width: 45% !important;
+  margin-left: 5% !important;
 }
 
 div.ss-auth .popupHeader {
-  font-size: 16px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 16px !important;
 }
 
 div.ss-auth .popupHeader {
-  background: #F4F4F2;
-  position: relative;
-  padding: 10px 20px;
-  border-bottom: 1px solid #DDD;
-  font-weight: bold;
+  background: #F4F4F2 !important;
+  position: relative !important;
+  padding: 10px 20px !important;
+  border-bottom: 1px solid #DDD !important;
+  font-weight: bold !important;
 }
 
 div.ss-auth .popupHeader .modal_close {
-  background: url(images/times.png) no-repeat left center;
-  position: absolute;
-  right: 0;
-  top: 10px;
-  padding: 10px 15px;
-  cursor: pointer;
-  color: #aaa;
-  font-size: 16px;
+  background: url(images/times.png) no-repeat left center !important;
+  position: absolute !important;
+  right: 0 !important;
+  top: 10px !important;
+  padding: 10px 15px !important;
+  cursor: pointer !important;
+  color: #aaa !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 16px !important;
 }
 
 div.ss-auth .popupBody {
-  padding: 20px;
+  padding: 20px !important;
 }
 
 div.ss-auth .social_login .social_box {
-  display: block;
-  clear: both;
-  padding: 10px;
-  margin-bottom: 10px;
-  background: #F4F4F2;
-  overflow: hidden;
+  display: block !important;
+  clear: both !important;
+  padding: 10px !important;
+  margin-bottom: 10px !important;
+  background: #F4F4F2 !important;
+  overflow: hidden !important;
 }
 
 div.ss-auth .social_login .icon {
-  display: block;
-  width: 10px;
-  padding-right: 10px;
-  padding-left: 5px;
-  margin-right: 5px;
-  margin-left: 5px;
-  height: 30px;
-  float: left;
-  color: #FFF;
-  font-size: 16px;
-  text-align: center;
+  display: block !important;
+  width: 10px !important;
+  padding-right: 10px !important;
+  padding-left: 5px !important;
+  margin-right: 5px !important;
+  margin-left: 5px !important;
+  height: 30px !important;
+  float: left !important;
+  color: #FFF !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 16px !important;
+  text-align: center !important;
 }
 
 div.ss-auth .social_login .weibo {
-  background: url(images/login_weibo.png) no-repeat left center;
+  background: url(images/login_weibo.png) no-repeat left center !important;
 }
 
 div.ss-auth .social_login .weixin {
-  background: url(images/login_weixin.png) no-repeat left center;
+  background: url(images/login_weixin.png) no-repeat left center !important;
 }
 
 div.ss-auth .social_login .qq {
-  background: url(images/login_qq.png) no-repeat left center;
+  background: url(images/login_qq.png) no-repeat left center !important;
 }
 
 div.ss-auth .social_login .icon_title {
-  display: block;
-  padding: 5px 0;
-  float: left;
-  font-weight: bold;
-  font-size: 16px;
-  color: #777;
+  display: block !important;
+  padding: 5px 0 !important;
+  float: left !important;
+  font-weight: bold !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 16px !important;
+  color: #777 !important;
 }
 
 div.ss-auth .social_login .social_box:hover {
-  background: #E4E4E2;
+  background: #E4E4E2 !important;
 }
 
 div.ss-auth .centeredText {
-  text-align: center;
-  margin: 20px 0;
-  clear: both;
-  overflow: hidden;
+  text-align: center !important;
+  margin: 20px 0 !important;
+  clear: both !important;
+  overflow: hidden !important;
 }
 
 div.ss-auth .successText {
-  text-align: center;
-  font-size: 1.17em;
-  color: #4CAF50;
-  margin: 15px 0 25px;
-  clear: both;
-  overflow: hidden;
+  text-align: center !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 1.17em !important;
+  color: #4CAF50 !important;
+  margin: 15px 0 25px !important;
+  clear: both !important;
+  overflow: hidden !important;
 }
 
 div.ss-auth .errorText {
-  text-align: center;
-  font-size: 1.17em;
-  color: #ED6347;
-  margin: 0 0 15px;
-  clear: both;
-  overflow: hidden;
+  text-align: center !important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+  font-size: 1.17em !important;
+  color: #ED6347 !important;
+  margin: 0 0 15px !important;
+  clear: both !important;
+  overflow: hidden !important;
 }
 
 div.ss-auth .action_btns {
-  clear: both;
-  overflow: hidden;
+  clear: both !important;
+  overflow: hidden !important;
 }
 
 div.ss-auth .action_btns a {
-  display: block;
+  display: block !important;
 }
 
 div.ss-auth .forgot_password {
-  display: block;
-  margin: 20px 0 10px;
-  clear: both;
-  overflow: hidden;
-  text-decoration: none;
-  color: #ED6347;
+  display: block !important;
+  margin: 20px 0 10px !important;
+  clear: both !important;
+  overflow: hidden !important;
+  text-decoration: none !important;
+  color: #ED6347 !important;
 }
 
-div.ss-auth .user_form label {
-  display: block;
-  margin-bottom: 5px;
+div.ss-auth label {
+  display: block !important;
+  margin-bottom: 5px !important;
 }
 
-div.ss-auth .user_form input[type="text"],
-div.ss-auth .user_form input[type="email"],
-div.ss-auth .user_form input[type="password"] {
-  display: block;
-  width: 90%;
-  padding: 10px;
-  border: 1px solid #DDD;
-  color: #666;
+div.ss-auth input[type="text"],
+div.ss-auth input[type="email"],
+div.ss-auth input[type="password"] {
+  display: block !important;
+  width: 90% !important;
+  padding: 10px !important;
+  border: 1px solid #DDD !important;
+  color: #666 !important;
 }
 
-div.ss-auth .user_form input[type="checkbox"] {
-  float: left;
-  margin-right: 5px;
+div.ss-auth input[type="checkbox"] {
+  float: left !important;
+  margin-right: 5px !important;
 }
 
-div.ss-auth .user_form input[type="checkbox"]+label {
-  float: left;
+div.ss-auth input[type="checkbox"]+label {
+  float: left !important;
 }
 
-div.ss-auth .user_form .checkbox {
-  margin-bottom: 10px;
-  clear: both;
-  overflow: hidden;
+div.ss-auth .checkbox {
+  margin-bottom: 10px !important;
+  clear: both !important;
+  overflow: hidden !important;
 }
 
-div.ss-auth .user_form input.is-danger, textarea.is-danger {
-  border-color: #ff3860;
+div.ss-auth input.is-danger, textarea.is-danger {
+  border-color: #ff3860 !important;
 }

@@ -3,14 +3,14 @@
   <metadata>
     <id>SS.Login</id>
     <version>$version$</version>
-    <title>SiteServer CMS 第三方登录插件</title>
+    <title>用户登录插件</title>
     <authors>SiteServer CMS</authors>
     <owners>siteserver</owners>
     <licenseUrl>https://github.com/siteserver/SS.Login/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/siteserver/SS.Login</projectUrl>
     <iconUrl>https://github.com/siteserver/SS.Login/raw/master/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>SiteServer CMS 第三方登录插件</description>
+    <description>SiteServer CMS 用户登录插件</description>
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
     <copyright>Copyright 2018</copyright>
     <tags>Tag1 Tag2</tags>

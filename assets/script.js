@@ -79,7 +79,7 @@
       openModal: function () {
         var $this = this;
 
-        $("body").append($("<div id='lean_overlay'></div>"));
+        $("body").append($("<div id='lean_overlay' style='position: fixed; z-index: 100; top: 0px; left: 0px; height: 100%; width: 100%; background: #000; display: block; opacity: 0.5;'></div>"));
         $("#lean_overlay").click(function () {
           $this.closeModal();
         });
@@ -92,19 +92,12 @@
         var modal_height = $(authModalId).outerHeight();
         var modal_width = $(authModalId).outerWidth();
 
-        $(authModalId).css({
-          "display": "block",
-          "position": "fixed",
-          "opacity": 0,
-          "z-index": 11000,
-          "left": 50 + "%",
-          "margin-left": -(modal_width / 2) + "px",
-          "top": "100px"
-        });
+        $(authModalId).attr("style", "display: block !important; position: fixed !important;z-index: 11000 !important;left: 50% !important; margin-left: " + -(modal_width / 2) + "px !important; top: 100px !important;");
+
         $(authModalId).fadeTo(200, 1);
       },
       closeModal: function () {
-        $("#lean_overlay").fadeOut(200);
+        $("#lean_overlay").remove();
         this.form = '';
       },
       openLoginModal: function () {

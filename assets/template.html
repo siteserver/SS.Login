@@ -9,7 +9,7 @@
 
 <!-- template start -->
 
-<div id="ss-auth" class="ss-auth" v-bind:style="{ display: form ? '' : 'none' }" style="display:none;">
+<div id="ss-auth" class="ss-auth cleanslate" v-bind:style="{ display: form ? '' : 'none !important' }" style="display: none !important;">
   <header class="popupHeader">
     <span class="header_title">{{ title }}</span>
     <span class="modal_close" @click="closeModal"></span>
@@ -17,19 +17,19 @@
 
   <section class="popupBody">
     <!-- Social form -->
-    <div class="social_login" v-bind:style="{ display: form == 'social' ? '' : 'none' }" style="display: none">
+    <div class="social_login" v-bind:style="{ display: form == 'social' ? '' : 'none !important' }" style="display: none !important;">
       <div>
-        <a v-bind:href="apiUrlWeixin" v-bind:style="{ display: apiUrlWeixin ? '' : 'none' }" style="display: none" class="social_box">
+        <a v-bind:href="apiUrlWeixin" v-bind:style="{ display: apiUrlWeixin ? '' : 'none !important' }" style="display: none !important;" class="social_box">
           <span class="icon weixin"></span>
           <span class="icon_title">微信登录</span>
         </a>
 
-        <a v-bind:href="apiUrlQq" v-bind:style="{ display: apiUrlQq ? '' : 'none' }" style="display: none" class="social_box">
+        <a v-bind:href="apiUrlQq" v-bind:style="{ display: apiUrlQq ? '' : 'none !important' }" style="display: none !important;" class="social_box">
           <span class="icon qq"></span>
           <span class="icon_title">QQ 登录</span>
         </a>
 
-        <a v-bind:href="apiUrlWeibo" v-bind:style="{ display: apiUrlWeibo ? '' : 'none' }" style="display: none" class="social_box">
+        <a v-bind:href="apiUrlWeibo" v-bind:style="{ display: apiUrlWeibo ? '' : 'none !important' }" style="display: none !important;" class="social_box">
           <span class="icon weibo"></span>
           <span class="icon_title">微博登录</span>
         </a>
@@ -50,9 +50,9 @@
     </div>
 
     <!-- Login form -->
-    <form class="user_form" data-vv-scope="login_form" v-bind:style="{ display: form == 'login' ? '' : 'none' }" style="display: none">
+    <div data-vv-scope="login_form" v-bind:style="{ display: form == 'login' ? '' : 'none !important' }" style="display: none !important;">
 
-      <div class="errorText" v-bind:style="{ display: errorMessage ? '' : 'none' }" style="display: none">
+      <div class="errorText" v-bind:style="{ display: errorMessage ? '' : 'none !important' }" style="display: none !important;">
         {{ errorMessage }}
       </div>
 
@@ -81,12 +81,12 @@
       </div>
 
       <!-- <a href="javascript:;" @click="openFindPasswordModal" class="forgot_password">忘记密码？</a> -->
-    </form>
+    </div>
 
     <!-- Register Form -->
-    <form class="user_form" data-vv-scope="register_form" v-bind:style="{ display: form == 'register' ? '' : 'none' }" style="display: none">
+    <div data-vv-scope="register_form" v-bind:style="{ display: form == 'register' ? '' : 'none !important' }" style="display: none !important;">
 
-      <div class="errorText" v-bind:style="{ display: errorMessage ? '' : 'none' }" style="display: none">
+      <div class="errorText" v-bind:style="{ display: errorMessage ? '' : 'none !important' }" style="display: none !important;">
         {{ errorMessage }}
       </div>
 
@@ -123,10 +123,10 @@
           <a href="javascript:;" @click="registerSubmit" class="btn btn_red">注 册</a>
         </div>
       </div>
-    </form>
+    </div>
 
     <!-- Register Success Form -->
-    <div class="user_form" v-bind:style="{ display: form == 'registerSuccess' ? '' : 'none' }" style="display: none">
+    <div class="user_form" v-bind:style="{ display: form == 'registerSuccess' ? '' : 'none !important' }" style="display: none !important;">
       <div class="successText">
         {{ registerSuccessMessage }}
       </div>
@@ -144,24 +144,25 @@
   </section>
 </div>
 
+<!-- template end -->
+
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/vue-2.1.10.min.js"></script>
 <script type="text/javascript" src="js/vee-validate-2.0.3.js"></script>
 <script type="text/javascript" src="js/axios-0.17.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="cleanslate.css" />
 <link rel="stylesheet" type="text/css" href="style.css" />
 <script type="text/javascript">
   var authData = {
-    apiUrlRegister: 'http://localhost:88/api/plugins/SS.OAuth/actions/Register',
-    apiUrlLogin: 'http://localhost:88/api/plugins/SS.OAuth/actions/Login',
-    apiUrlLogout: 'http://localhost:88/api/plugins/SS.OAuth/actions/Logout',
-    apiUrlWeixin: 'http://localhost:88/api/plugins/SS.OAuth/OAuth/Weixin?redirectUrl=http://location:88',
-    apiUrlWeibo: 'http://localhost:88/api/plugins/SS.OAuth/OAuth/Weibo?redirectUrl=http://location:88',
-    apiUrlQq: 'http://localhost:88/api/plugins/SS.OAuth/OAuth/Qq?redirectUrl=http://location:88',
+    apiUrlRegister: 'http://localhost:88/api/plugins/SS.Login/actions/Register',
+    apiUrlLogin: 'http://localhost:88/api/plugins/SS.Login/actions/Login',
+    apiUrlLogout: 'http://localhost:88/api/plugins/SS.Login/actions/Logout',
+    apiUrlWeixin: 'http://localhost:88/api/plugins/SS.Login/OAuth/Weixin?redirectUrl=http://location:88',
+    apiUrlWeibo: 'http://localhost:88/api/plugins/SS.Login/OAuth/Weibo?redirectUrl=http://location:88',
+    apiUrlQq: 'http://localhost:88/api/plugins/SS.Login/OAuth/Qq?redirectUrl=http://location:88',
     registerSuccessMessage: '恭喜，注册用户成功',
     loginRedirectUrl: '?success=true',
     logoutRedirectUrl: '?logout=true',
   };
 </script>
 <script type="text/javascript" src="script.js"></script>
-
-<!-- template end -->

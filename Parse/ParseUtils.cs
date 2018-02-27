@@ -18,22 +18,23 @@ namespace SS.Login.Parse
             var htmlPath = LoginPlugin.Instance.PluginApi.GetPluginPath("assets/template.html");
             var assetsUrl = LoginPlugin.Instance.PluginApi.GetPluginUrl("assets");
             var html = CacheUtils.Get<string>(htmlPath);
-            if (html == null)
-            {
-                html = Utils.ReadText(htmlPath);
-                var startIndex = html.IndexOf("<!-- template start -->", StringComparison.Ordinal);
-                var length = html.IndexOf("<!-- template end -->", StringComparison.Ordinal) - startIndex;
-                html = html.Substring(startIndex, length);
-                html = html.Replace(@"<script type=""text/javascript"" src=""",
-                    $@"<script type=""text/javascript"" src=""{assetsUrl}/");
-                html = html.Replace(@"<link rel=""stylesheet"" type=""text/css"" href=""",
-                    $@"<link rel=""stylesheet"" type=""text/css"" href=""{assetsUrl}/");
-                CacheUtils.InsertHours(htmlPath, html, 3);
-            }
+            if (html != null) return html;
 
-            html += $@"
+            html = Utils.ReadText(htmlPath);
+            var startIndex = html.IndexOf("<!-- template start -->", StringComparison.Ordinal);
+            var length = html.IndexOf("<!-- template end -->", StringComparison.Ordinal) - startIndex;
+            html = html.Substring(startIndex, length);
+
+            html = $@"
+<link rel=""stylesheet"" type=""text/css"" href=""{assetsUrl}/cleanslate.css"" />
+<link rel=""stylesheet"" type=""text/css"" href=""{assetsUrl}/style.css"" />
+{html}
+<script type=""text/javascript"" src=""{assetsUrl}/js/jquery.min.js""></script>
+<script type=""text/javascript"" src=""{assetsUrl}/js/vue-2.1.10.min.js""></script>
+<script type=""text/javascript"" src=""{assetsUrl}/js/vee-validate-2.0.3.js""></script>
+<script type=""text/javascript"" src=""{assetsUrl}/js/axios-0.17.1.min.js""></script>
 <script type=""text/javascript"">
-authData = {{
+var authData = {{
     apiUrlRegister: '{StlRegister.GetApiUrlRegister()}',
     apiUrlLogin: '{StlLogin.GetApiUrlLogin()}',
     apiUrlLogout: '{StlLogout.GetApiUrlLogout()}',
@@ -44,7 +45,11 @@ authData = {{
     loginRedirectUrl: '?success=true',
     logoutRedirectUrl: '?logout=true',
 }};
-</script>";
+</script>
+<script type=""text/javascript"" src=""{assetsUrl}/script.js""></script>
+";
+
+            CacheUtils.InsertHours(htmlPath, html, 3);
 
             return html;
         }
