@@ -249,7 +249,7 @@ namespace SS.Login.Parse
                 redirectUrl = LoginPlugin.Instance.ParseApi.GetCurrentUrl(context);
             }
 
-            var text = string.Empty;
+            string text;
             var url = string.Empty;
             var onClick = string.Empty;
             if (Utils.EqualsIgnoreCase(type, OAuthType.Weibo.Value))

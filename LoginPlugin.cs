@@ -49,7 +49,7 @@ namespace SS.Login
                 .AddStlElementParser(StlRegister.ElementName, StlRegister.Parse)
                 .AddPluginMenu(new Menu
                 {
-                    Text = "账号授权认证",
+                    Text = "用户登录设置",
                     Menus = new List<Menu>
                     {
                         new Menu

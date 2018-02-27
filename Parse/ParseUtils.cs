@@ -11,7 +11,7 @@ namespace SS.Login.Parse
         public const string OnClickRegister = "$authVue.openRegisterModal()";
         public const string OnClickLogout = "$authVue.logout()";
 
-        public static string GlobalHtmlCodeKey = "";
+        public static string GlobalHtmlCodeKey = "SS.Login.Parse.GlobalHtml";
 
         public static string GetGlobalHtml()
         {
