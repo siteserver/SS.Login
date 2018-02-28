@@ -22,6 +22,80 @@ namespace SS.Login.Parse
 
         public const string TypeAll = "all";
 
+        public static string Parse(IParseContext context)
+        {
+            var type = string.Empty;
+            var redirectUrl = string.Empty;
+
+            ParseUtils.RegisterBodyHtml(context);
+
+            var stlAnchor = new HtmlAnchor();
+
+            foreach (var name in context.StlAttributes.Keys)
+            {
+                var value = context.StlAttributes[name];
+                if (Utils.EqualsIgnoreCase(name, AttributeType))
+                {
+                    type = LoginPlugin.Instance.ParseApi.ParseAttributeValue(value, context);
+                }
+                else if (Utils.EqualsIgnoreCase(name, AttributeRedirectUrl))
+                {
+                    redirectUrl = LoginPlugin.Instance.ParseApi.ParseAttributeValue(value, context);
+                }
+                else
+                {
+                    stlAnchor.Attributes.Add(name, value);
+                }
+            }
+
+            if (string.IsNullOrEmpty(redirectUrl))
+            {
+                redirectUrl = LoginPlugin.Instance.ParseApi.GetCurrentUrl(context);
+            }
+
+            string text;
+            var url = string.Empty;
+            var onClick = string.Empty;
+            if (Utils.EqualsIgnoreCase(type, OAuthType.Weibo.Value))
+            {
+                text = "微博登录";
+                url = $"{GetOAuthApiUrl(OAuthType.Weibo)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
+            }
+            else if (Utils.EqualsIgnoreCase(type, OAuthType.Weixin.Value))
+            {
+                text = "微信登录";
+                url = $"{GetOAuthApiUrl(OAuthType.Weixin)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
+            }
+            else if (Utils.EqualsIgnoreCase(type, OAuthType.Qq.Value))
+            {
+                text = "QQ登录";
+                url = $"{GetOAuthApiUrl(OAuthType.Qq)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
+            }
+            else if (Utils.EqualsIgnoreCase(type, TypeAll))
+            {
+                text = "一键登录";
+                onClick = ParseUtils.OnClickLoginAll;
+            }
+            else
+            {
+                text = "登录";
+                onClick = ParseUtils.OnClickLogin;
+            }
+
+            stlAnchor.HRef = string.IsNullOrEmpty(url) ? "javascript:;" : url;
+            if (!string.IsNullOrEmpty(onClick))
+            {
+                stlAnchor.Attributes.Add("onclick", onClick);
+            }
+
+            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.ParseInnerXml(context.StlInnerXml, context);
+            if (string.IsNullOrWhiteSpace(stlAnchor.InnerHtml))
+            {
+                stlAnchor.InnerHtml = text;
+            }
+            return Utils.GetControlRenderHtml(stlAnchor);
+        }
+
         public static string GetApiUrlLogin()
         {
             return LoginPlugin.Instance.PluginApi.GetPluginApiUrl("actions", nameof(Login));
@@ -213,83 +287,6 @@ namespace SS.Login.Parse
             response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/html");
 
             return response;
-        }
-
-        public static string Parse(IParseContext context)
-        {
-            var type = string.Empty;
-            var redirectUrl = string.Empty;
-
-            if (!context.StlPageBody.ContainsKey(ParseUtils.GlobalHtmlCodeKey))
-            {
-                context.StlPageBody.Add(ParseUtils.GlobalHtmlCodeKey, ParseUtils.GetGlobalHtml());
-            }
-
-            var stlAnchor = new HtmlAnchor();
-
-            foreach (var name in context.StlAttributes.Keys)
-            {
-                var value = context.StlAttributes[name];
-                if (Utils.EqualsIgnoreCase(name, AttributeType))
-                {
-                    type = LoginPlugin.Instance.ParseApi.ParseAttributeValue(value, context);
-                }
-                else if (Utils.EqualsIgnoreCase(name, AttributeRedirectUrl))
-                {
-                    redirectUrl = LoginPlugin.Instance.ParseApi.ParseAttributeValue(value, context);
-                }
-                else
-                {
-                    stlAnchor.Attributes.Add(name, value);
-                }
-            }
-
-            if (string.IsNullOrEmpty(redirectUrl))
-            {
-                redirectUrl = LoginPlugin.Instance.ParseApi.GetCurrentUrl(context);
-            }
-
-            string text;
-            var url = string.Empty;
-            var onClick = string.Empty;
-            if (Utils.EqualsIgnoreCase(type, OAuthType.Weibo.Value))
-            {
-                text = "微博登录";
-                url = $"{GetOAuthApiUrl(OAuthType.Weibo)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
-            }
-            else if (Utils.EqualsIgnoreCase(type, OAuthType.Weixin.Value))
-            {
-                text = "微信登录";
-                url = $"{GetOAuthApiUrl(OAuthType.Weixin)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
-            }
-            else if (Utils.EqualsIgnoreCase(type, OAuthType.Qq.Value))
-            {
-                text = "QQ登录";
-                url = $"{GetOAuthApiUrl(OAuthType.Qq)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
-            }
-            else if (Utils.EqualsIgnoreCase(type, TypeAll))
-            {
-                text = "一键登录";
-                onClick = ParseUtils.OnClickLoginAll;
-            }
-            else
-            {
-                text = "登录";
-                onClick = ParseUtils.OnClickLogin;
-            }
-
-            stlAnchor.HRef = string.IsNullOrEmpty(url) ? "javascript:;" : url;
-            if (!string.IsNullOrEmpty(onClick))
-            {
-                stlAnchor.Attributes.Add("onclick", onClick);
-            }
-
-            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.ParseInnerXml(context.StlInnerXml, context);
-            if (string.IsNullOrWhiteSpace(stlAnchor.InnerHtml))
-            {
-                stlAnchor.InnerHtml = text;
-            }
-            return Utils.GetControlRenderHtml(stlAnchor);
         }
     }
 }

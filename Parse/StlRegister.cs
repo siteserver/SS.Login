@@ -10,6 +10,25 @@ namespace SS.Login.Parse
         private StlRegister() { }
         public const string ElementName = "stl:register";
 
+        public static string Parse(IParseContext context)
+        {
+            ParseUtils.RegisterBodyHtml(context);
+
+            var stlAnchor = new HtmlAnchor();
+
+            foreach (var name in context.StlAttributes.Keys)
+            {
+                var value = context.StlAttributes[name];
+                stlAnchor.Attributes.Add(name, value);
+            }
+
+            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.ParseInnerXml(context.StlInnerXml, context);
+            stlAnchor.HRef = "javascript:;";
+            stlAnchor.Attributes.Add("onclick", ParseUtils.OnClickRegister);
+
+            return Utils.GetControlRenderHtml(stlAnchor);
+        }
+
         public static string GetApiUrlRegister()
         {
             return LoginPlugin.Instance.PluginApi.GetPluginApiUrl("actions", nameof(Register));
@@ -36,28 +55,6 @@ namespace SS.Login.Parse
             }
 
             return new object();
-        }
-
-        public static string Parse(IParseContext context)
-        {
-            if (!context.StlPageBody.ContainsKey(ParseUtils.GlobalHtmlCodeKey))
-            {
-                context.StlPageBody.Add(ParseUtils.GlobalHtmlCodeKey, ParseUtils.GetGlobalHtml());
-            }
-
-            var stlAnchor = new HtmlAnchor();
-
-            foreach (var name in context.StlAttributes.Keys)
-            {
-                var value = context.StlAttributes[name];
-                stlAnchor.Attributes.Add(name, value);
-            }
-
-            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.ParseInnerXml(context.StlInnerXml, context);
-            stlAnchor.HRef = "javascript:;";
-            stlAnchor.Attributes.Add("onclick", ParseUtils.OnClickRegister);
-
-            return Utils.GetControlRenderHtml(stlAnchor);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using SiteServer.Plugin;
 using SS.Login.Core;
 using SS.Login.Models;
 
@@ -11,22 +12,29 @@ namespace SS.Login.Parse
         public const string OnClickRegister = "$authVue.openRegisterModal()";
         public const string OnClickLogout = "$authVue.logout()";
 
-        public static string GlobalHtmlCodeKey = "SS.Login.Parse.GlobalHtml";
-
-        public static string GetGlobalHtml()
+        public static void RegisterBodyHtml(IParseContext context)
         {
-            var htmlPath = LoginPlugin.Instance.PluginApi.GetPluginPath("assets/template.html");
-            var assetsUrl = LoginPlugin.Instance.PluginApi.GetPluginUrl("assets");
-            var html = CacheUtils.Get<string>(htmlPath);
-            if (html != null) return html;
+            context.StlPageBody[GlobalHtmlKey] = GlobalHtml;
+        }
 
-            html = Utils.ReadText(htmlPath);
-            var startIndex = html.IndexOf("<!-- template start -->", StringComparison.Ordinal);
-            var length = html.IndexOf("<!-- template end -->", StringComparison.Ordinal) - startIndex;
-            html = html.Substring(startIndex, length);
+        private const string GlobalHtmlKey = "SS.Login.Parse.GlobalHtml";
 
-            html = $@"
-<link rel=""stylesheet"" type=""text/css"" href=""{assetsUrl}/cleanslate.css"" />
+        private static string GlobalHtml
+        {
+            get
+            {
+                var htmlPath = LoginPlugin.Instance.PluginApi.GetPluginPath("assets/template.html");
+                var assetsUrl = LoginPlugin.Instance.PluginApi.GetPluginUrl("assets");
+                var html = CacheUtils.Get<string>(htmlPath);
+                if (html != null) return html;
+
+                html = Utils.ReadText(htmlPath);
+                var startIndex = html.IndexOf("<!-- template start -->", StringComparison.Ordinal);
+                var length = html.IndexOf("<!-- template end -->", StringComparison.Ordinal) - startIndex;
+                html = html.Substring(startIndex, length);
+
+                html = $@"
+<link rel=""stylesheet"" type=""text/css"" href=""{assetsUrl}/cleanslate.min.css"" />
 <link rel=""stylesheet"" type=""text/css"" href=""{assetsUrl}/style.css"" />
 {html}
 <script type=""text/javascript"" src=""{assetsUrl}/js/jquery.min.js""></script>
@@ -49,9 +57,9 @@ var authData = {{
 <script type=""text/javascript"" src=""{assetsUrl}/script.js""></script>
 ";
 
-            CacheUtils.InsertHours(htmlPath, html, 3);
-
-            return html;
+                CacheUtils.InsertHours(htmlPath, html, 3);
+                return html;
+            }
         }
     }
 }

@@ -11,25 +11,11 @@ namespace SS.Login.Parse
 
         public const string AttributeRedirectUrl = "redirectUrl";
 
-        public static string GetApiUrlLogout()
-        {
-            return LoginPlugin.Instance.PluginApi.GetPluginApiUrl("actions", nameof(Logout));
-        }
-
-        public static object Logout(IRequest request)
-        {
-            request.UserLogout();
-            return new object();
-        }
-
         public static string Parse(IParseContext context)
         {
             var redirectUrl = string.Empty;
 
-            if (!context.StlPageBody.ContainsKey(ParseUtils.GlobalHtmlCodeKey))
-            {
-                context.StlPageBody.Add(ParseUtils.GlobalHtmlCodeKey, ParseUtils.GetGlobalHtml());
-            }
+            ParseUtils.RegisterBodyHtml(context);
 
             var stlAnchor = new HtmlAnchor();
 
@@ -56,6 +42,17 @@ namespace SS.Login.Parse
             stlAnchor.Attributes.Add("onclick", ParseUtils.OnClickLogout);
 
             return Utils.GetControlRenderHtml(stlAnchor);
+        }
+
+        public static string GetApiUrlLogout()
+        {
+            return LoginPlugin.Instance.PluginApi.GetPluginApiUrl("actions", nameof(Logout));
+        }
+
+        public static object Logout(IRequest request)
+        {
+            request.UserLogout();
+            return new object();
         }
     }
 }
