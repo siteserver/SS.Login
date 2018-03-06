@@ -19,7 +19,7 @@ namespace SS.Login.Pages
 
         public string GetRedirectUrl()
         {
-            return LoginPlugin.Instance.PluginApi.GetPluginUrl(nameof(PageSettings) + ".aspx");
+            return nameof(PageSettings) + ".aspx";
         }
 
         public void Page_Load(object sender, EventArgs e)
