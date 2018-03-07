@@ -91,11 +91,11 @@
     <None Include="assets\plugin-utils\fonts\ionicons.eot" />
     <None Include="assets\plugin-utils\fonts\ionicons.ttf" />
     <None Include="assets\plugin-utils\fonts\ionicons.woff" />
-    <None Include="assets\README.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\cleanslate.css" />
+    <Content Include="assets\cleanslate.min.css" />
     <Content Include="assets\images\login_qq.png" />
     <Content Include="assets\images\login_weibo.png" />
     <Content Include="assets\images\login_weixin.png" />
