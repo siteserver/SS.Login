@@ -1,5 +1,6 @@
   var authModalId = "#ss-auth";
 
+  axios.defaults.withCredentials = true;
   Vue.use(VeeValidate);
   var $authVue = new Vue({
     el: authModalId,
