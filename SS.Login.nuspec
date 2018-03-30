@@ -8,7 +8,7 @@
     <owners>siteserver</owners>
     <licenseUrl>https://github.com/siteserver/SS.Login/blob/master/LICENSE</licenseUrl>
     <projectUrl>https://github.com/siteserver/SS.Login</projectUrl>
-    <iconUrl>https://github.com/siteserver/SS.Login/raw/master/logo.png</iconUrl>
+    <iconUrl>http://plugins.siteserver.cn/ss.login/logo.svg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>SiteServer CMS 用户登录插件</description>
     <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>

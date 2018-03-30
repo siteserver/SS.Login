@@ -94,7 +94,7 @@
 
   notifications:
     - provider: Webhook
-      url: http://api.siteserver.cn/v1.0/packages/SS.Login?isNightly=true
+      url: http://api.siteserver.cn/v1.1/packages/SS.Login?isNightly=true
       headers:
         X-SiteServer-ApiKey:
           secure: BgJi7I52wZsaeoldjE1txzqjNWIqDwUUYzH5VFoVrZUW2NlSocZlSl1uXKE2PQut

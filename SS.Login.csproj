@@ -33,8 +33,8 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SiteServer.Plugin, Version=1.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\SiteServer.Plugin.1.4.0\lib\net45\SiteServer.Plugin.dll</HintPath>
+    <Reference Include="SiteServer.Plugin, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SiteServer.Plugin.1.5.0\lib\net45\SiteServer.Plugin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -92,10 +92,17 @@
     <None Include="assets\plugin-utils\fonts\ionicons.ttf" />
     <None Include="assets\plugin-utils\fonts\ionicons.woff" />
     <None Include="packages.config" />
+    <None Include="SS.Login.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\cleanslate.css" />
     <Content Include="assets\cleanslate.min.css" />
+    <Content Include="assets\docs\login001.png" />
+    <Content Include="assets\docs\login002.png" />
+    <Content Include="assets\docs\login003.png" />
+    <Content Include="assets\docs\login004.png" />
+    <Content Include="assets\docs\login005.png" />
+    <Content Include="assets\docs\login006.png" />
     <Content Include="assets\images\login_qq.png" />
     <Content Include="assets\images\login_weibo.png" />
     <Content Include="assets\images\login_weixin.png" />
@@ -120,6 +127,7 @@
     <Content Include="assets\style.min.css" />
     <Content Include="assets\template.html" />
     <Content Include="assets\template.min.html" />
+    <Content Include="logo.svg" />
     <Content Include="PageOAuth.aspx" />
     <Content Include="PageOAuthQq.aspx" />
     <Content Include="PageOAuthWeibo.aspx" />
