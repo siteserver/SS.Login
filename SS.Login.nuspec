@@ -16,6 +16,7 @@
     <tags>Tag1 Tag2</tags>
   </metadata>
   <files>
-    <file src="SS.Login.Files\assets\plugin-utils\fonts\**" target="Content\SS.Login.Files\assets\plugin-utils\fonts"/>
+    <file src="SS.Login.Files\assets\plugin-utils\fonts\**" target="Content\SS.Login.Files\assets\plugin-utils\fonts" />
+    <file src="SS.Login.Files\docs\**" target="Content\SS.Login.Files\docs" />
   </files>
 </package>
