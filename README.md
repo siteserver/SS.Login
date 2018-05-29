@@ -6,11 +6,11 @@
 
 * 安装成功后，插件管理中可以看到用户登录设置
 
-![](./assets/docs/login001.png)
+![](./SS.Login.Files/assets/docs/login001.png)
 
 * 点击授权认证设置来设置用户注册需要添加的字段，设置用户注册成功提示语
 
-![](./assets/docs/login002.png)
+![](./SS.Login.Files/assets/docs/login002.png)
 
 ### 2、 用户登录注册退出标签调用
 
@@ -20,7 +20,7 @@
 <stl:login>登录</stl:login>
 ```
 
-![](./assets/docs/login003.png)
+![](./SS.Login.Files/assets/docs/login003.png)
 
 * 注册标签：
 
@@ -28,7 +28,7 @@
 <stl:register>注册</stl:register>
 ```
 
-![](./assets/docs/login004.png)
+![](./SS.Login.Files/assets/docs/login004.png)
 
 * 退出标签：
 
@@ -52,9 +52,9 @@
 
 * 第三方登录首先要配置 App Key 和 APP Secret
 
-![](./assets/docs/login005.png)
+![](./SS.Login.Files/assets/docs/login005.png)
 
-![](./assets/docs/login006.png)
+![](./SS.Login.Files/assets/docs/login006.png)
 
 ### 5、第三方登录标签调用
 

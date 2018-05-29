@@ -55,12 +55,12 @@ namespace SS.Login
                         new Menu
                         {
                             Text = "授权认证设置",
-                            Href = $"{nameof(PageSettings)}.aspx"
+                            Href = $"SS.Login.Files/{nameof(PageSettings)}.aspx"
                         },
                         new Menu
                         {
                             Text = "第三方登录设置",
-                            Href = $"{nameof(PageOAuth)}.aspx"
+                            Href = $"SS.Login.Files/{nameof(PageOAuth)}.aspx"
                         }
                     }
                 })
