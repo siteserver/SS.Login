@@ -88,7 +88,7 @@ namespace SS.Login.Parse
                 stlAnchor.Attributes.Add("onclick", onClick);
             }
 
-            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.ParseInnerXml(context.StlInnerXml, context);
+            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.Parse(context.StlInnerHtml, context);
             if (string.IsNullOrWhiteSpace(stlAnchor.InnerHtml))
             {
                 stlAnchor.InnerHtml = text;

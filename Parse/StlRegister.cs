@@ -22,7 +22,7 @@ namespace SS.Login.Parse
                 stlAnchor.Attributes.Add(name, value);
             }
 
-            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.ParseInnerXml(context.StlInnerXml, context);
+            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.Parse(context.StlInnerHtml, context);
             stlAnchor.HRef = "javascript:;";
             stlAnchor.Attributes.Add("onclick", ParseUtils.OnClickRegister);
 

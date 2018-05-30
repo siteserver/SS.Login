@@ -37,7 +37,7 @@ namespace SS.Login.Parse
                 redirectUrl = LoginPlugin.Instance.ParseApi.GetCurrentUrl(context);
             }
 
-            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.ParseInnerXml(context.StlInnerXml, context);
+            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.Parse(context.StlInnerHtml, context);
             stlAnchor.HRef = "javascript:;";
             stlAnchor.Attributes.Add("onclick", ParseUtils.OnClickLogout);
 
