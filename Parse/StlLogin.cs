@@ -31,7 +31,7 @@ namespace SS.Login.Parse
 
             var stlAnchor = new HtmlAnchor();
 
-            foreach (var name in context.StlAttributes.Keys)
+            foreach (var name in context.StlAttributes.AllKeys)
             {
                 var value = context.StlAttributes[name];
                 if (Utils.EqualsIgnoreCase(name, AttributeType))
