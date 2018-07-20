@@ -19,7 +19,7 @@ namespace SS.Login.Core
         {
             AppId = appId;
             AppSecret = appSecret;
-            RedirectUrl = $"{LoginPlugin.Instance.PluginApi.GetPluginApiUrl(nameof(StlLogin.OAuthRedirect), OAuthType.Weixin.Value)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
+            RedirectUrl = $"{LoginPlugin.Instance.PluginApi.PluginApiUrl}/{nameof(StlLogin.OAuthRedirect)}/{OAuthType.Weixin.Value}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
         }
 
         public string GetAuthorizationUrl()

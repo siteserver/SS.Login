@@ -46,7 +46,7 @@ namespace SS.Login.Parse
 
         public static string GetApiUrlLogout()
         {
-            return LoginPlugin.Instance.PluginApi.GetPluginApiUrl("actions", nameof(Logout));
+            return $"{LoginPlugin.Instance.PluginApi.PluginApiUrl}/actions/{nameof(Logout)}";
         }
 
         public static object Logout(IRequest request)

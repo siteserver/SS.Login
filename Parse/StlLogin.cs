@@ -98,12 +98,12 @@ namespace SS.Login.Parse
 
         public static string GetApiUrlLogin()
         {
-            return LoginPlugin.Instance.PluginApi.GetPluginApiUrl("actions", nameof(Login));
+            return $"{LoginPlugin.Instance.PluginApi.PluginApiUrl}/actions/{nameof(Login)}";
         }
 
         public static string GetOAuthApiUrl(OAuthType type)
         {
-            return LoginPlugin.Instance.PluginApi.GetPluginApiUrl(nameof(OAuth), type.Value);
+            return $"{LoginPlugin.Instance.PluginApi.PluginApiUrl}/{nameof(OAuth)}/{type.Value}";
         }
 
         public static object Login(IRequest request)

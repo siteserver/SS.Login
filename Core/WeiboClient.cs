@@ -20,7 +20,7 @@ namespace SS.Login.Core
         {
             AppKey = appKey;
             AppSecret = appSecret;
-            RedirectUrl = $"{LoginPlugin.Instance.PluginApi.GetPluginApiUrl(nameof(StlLogin.OAuthRedirect), OAuthType.Weibo.Value)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
+            RedirectUrl = $"{LoginPlugin.Instance.PluginApi.PluginApiUrl}/{nameof(StlLogin.OAuthRedirect)}/{OAuthType.Weibo.Value}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
         }
 
         public string GetAuthorizationUrl()

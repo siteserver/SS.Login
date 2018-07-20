@@ -13,7 +13,7 @@ namespace SS.Login
 {
     public class LoginPlugin : PluginBase
     {
-        public const string PluginId = "SS.Login";
+        public static string PluginId => Instance.Id;
 
         public bool IsOAuthReady(OAuthType oAuthType)
         {
@@ -74,19 +74,19 @@ namespace SS.Login
 
         private object Service_ApiGet(object sender, ApiEventArgs args)
         {
-            if (!string.IsNullOrEmpty(args.Action) && !string.IsNullOrEmpty(args.Id))
+            if (!string.IsNullOrEmpty(args.RouteResource) && !string.IsNullOrEmpty(args.RouteId))
             {
-                if (Utils.EqualsIgnoreCase(args.Action, nameof(StlLogin.OAuth)))
+                if (Utils.EqualsIgnoreCase(args.RouteResource, nameof(StlLogin.OAuth)))
                 {
-                    return StlLogin.OAuth(args.Request, OAuthType.Parse(args.Id));
+                    return StlLogin.OAuth(args.Request, OAuthType.Parse(args.RouteId));
                 }
-                if (Utils.EqualsIgnoreCase(args.Action, nameof(StlLogin.OAuthRedirect)))
+                if (Utils.EqualsIgnoreCase(args.RouteResource, nameof(StlLogin.OAuthRedirect)))
                 {
-                    return StlLogin.OAuthRedirect(args.Request, OAuthType.Parse(args.Id));
+                    return StlLogin.OAuthRedirect(args.Request, OAuthType.Parse(args.RouteId));
                 }
-                if (Utils.EqualsIgnoreCase(args.Action, nameof(ApiHttpGet.Captcha)))
+                if (Utils.EqualsIgnoreCase(args.RouteResource, nameof(ApiHttpGet.Captcha)))
                 {
-                    return ApiHttpGet.Captcha(args.Id);
+                    return ApiHttpGet.Captcha(args.RouteId);
                 }
             }
 
@@ -95,46 +95,42 @@ namespace SS.Login
 
         private static object Service_ApiPost(object sender, ApiEventArgs args)
         {
-            if (string.IsNullOrEmpty(args.Action) || !Utils.EqualsIgnoreCase(args.Action, "actions") ||
-                string.IsNullOrEmpty(args.Id)) throw new Exception("请求的资源不在服务器上");
-
             var request = args.Request;
-            var id = args.Id;
 
-            if (Utils.EqualsIgnoreCase(id, nameof(StlRegister.Register)))
+            if (Utils.EqualsIgnoreCase(args.RouteAction, nameof(StlRegister.Register)))
             {
                 return StlRegister.Register(request);
             }
-            if (Utils.EqualsIgnoreCase(id, nameof(StlLogin.Login)))
+            if (Utils.EqualsIgnoreCase(args.RouteAction, nameof(StlLogin.Login)))
             {
                 return StlLogin.Login(request);
             }
-            if (Utils.EqualsIgnoreCase(id, nameof(StlLogout.Logout)))
+            if (Utils.EqualsIgnoreCase(args.RouteAction, nameof(StlLogout.Logout)))
             {
                 return StlLogout.Logout(request);
             }
 
-            if (Utils.EqualsIgnoreCase(id, nameof(ApiJsonActionsPost.ResetPassword)))
+            if (Utils.EqualsIgnoreCase(args.RouteAction, nameof(ApiJsonActionsPost.ResetPassword)))
             {
                 return ApiJsonActionsPost.ResetPassword(request);
             }
-            if (Utils.EqualsIgnoreCase(id, nameof(ApiJsonActionsPost.ResetPasswordByToken)))
+            if (Utils.EqualsIgnoreCase(args.RouteAction, nameof(ApiJsonActionsPost.ResetPasswordByToken)))
             {
                 return ApiJsonActionsPost.ResetPasswordByToken(request);
             }
-            if (Utils.EqualsIgnoreCase(id, nameof(ApiJsonActionsPost.Edit)))
+            if (Utils.EqualsIgnoreCase(args.RouteAction, nameof(ApiJsonActionsPost.Edit)))
             {
                 return ApiJsonActionsPost.Edit(request);
             }
-            if (Utils.EqualsIgnoreCase(id, nameof(ApiJsonActionsPost.IsMobileExists)))
+            if (Utils.EqualsIgnoreCase(args.RouteAction, nameof(ApiJsonActionsPost.IsMobileExists)))
             {
                 return ApiJsonActionsPost.IsMobileExists(request);
             }
-            if (Utils.EqualsIgnoreCase(id, nameof(ApiJsonActionsPost.IsPasswordCorrect)))
+            if (Utils.EqualsIgnoreCase(args.RouteAction, nameof(ApiJsonActionsPost.IsPasswordCorrect)))
             {
                 return ApiJsonActionsPost.IsPasswordCorrect(request);
             }
-            if (Utils.EqualsIgnoreCase(id, nameof(ApiJsonActionsPost.IsCodeCorrect)))
+            if (Utils.EqualsIgnoreCase(args.RouteAction, nameof(ApiJsonActionsPost.IsCodeCorrect)))
             {
                 return ApiJsonActionsPost.IsCodeCorrect(request);
             }

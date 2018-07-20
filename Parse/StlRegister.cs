@@ -31,7 +31,7 @@ namespace SS.Login.Parse
 
         public static string GetApiUrlRegister()
         {
-            return LoginPlugin.Instance.PluginApi.GetPluginApiUrl("actions", nameof(Register));
+            return $"{LoginPlugin.Instance.PluginApi.PluginApiUrl}/actions/{nameof(Register)}";
         }
 
         public static object Register(IRequest request)
