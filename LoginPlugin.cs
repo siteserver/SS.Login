@@ -47,7 +47,7 @@ namespace SS.Login
                 .AddStlElementParser(StlLogin.ElementName, StlLogin.Parse)
                 .AddStlElementParser(StlLogout.ElementName, StlLogout.Parse)
                 .AddStlElementParser(StlRegister.ElementName, StlRegister.Parse)
-                .AddPluginMenu(new Menu
+                .AddSystemMenu(new Menu
                 {
                     Text = "用户登录设置",
                     Menus = new List<Menu>

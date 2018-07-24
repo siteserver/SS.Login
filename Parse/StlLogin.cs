@@ -111,22 +111,32 @@ namespace SS.Login.Parse
             var account = request.GetPostString("account");
             var password = request.GetPostString("password");
 
+            IUserInfo userInfo;
             string userName;
             string errorMessage;
             if (!LoginPlugin.Instance.UserApi.Validate(account, password, out userName, out errorMessage))
             {
-                LoginPlugin.Instance.UserApi.UpdateLastActivityDateAndCountOfFailedLogin(userName);
+                userInfo = LoginPlugin.Instance.UserApi.GetUserInfoByUserName(userName);
+                if (userInfo != null)
+                {
+                    userInfo.CountOfFailedLogin += 1;
+                    userInfo.LastActivityDate = DateTime.Now;
+                    LoginPlugin.Instance.UserApi.Update(userInfo);
+                }
                 throw new Exception(errorMessage);
             }
 
-            LoginPlugin.Instance.UserApi.UpdateLastActivityDateAndCountOfLogin(userName);
-            var user = LoginPlugin.Instance.UserApi.GetUserInfoByUserName(userName);
+            userInfo = LoginPlugin.Instance.UserApi.GetUserInfoByUserName(userName);
+            userInfo.CountOfFailedLogin = 0;
+            userInfo.CountOfLogin += 1;
+            userInfo.LastActivityDate = DateTime.Now;
+            LoginPlugin.Instance.UserApi.Update(userInfo);
 
-            request.UserLogin(userName);
+            request.UserLogin(userName, true);
 
             return new
             {
-                User = user
+                User = userInfo
             };
         }
 
@@ -276,7 +286,7 @@ namespace SS.Login.Parse
 
             if (!string.IsNullOrEmpty(userName))
             {
-                context.UserLogin(userName);
+                context.UserLogin(userName, true);
             }
 
             var response = new HttpResponseMessage

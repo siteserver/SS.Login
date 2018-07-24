@@ -14,7 +14,7 @@ namespace SS.Login.Parse
 
         public static void RegisterBodyHtml(IParseContext context)
         {
-            context.StlPageBody[GlobalHtmlKey] = GlobalHtml;
+            context.BodyCodes[GlobalHtmlKey] = GlobalHtml;
         }
 
         private const string GlobalHtmlKey = "SS.Login.Parse.GlobalHtml";

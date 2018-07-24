@@ -6,10 +6,10 @@
         {
             var count = 0;
 
-            using (var conn = LoginPlugin.Instance.DataApi.GetConnection(LoginPlugin.Instance.ConnectionString))
+            using (var conn = LoginPlugin.Instance.DatabaseApi.GetConnection(LoginPlugin.Instance.ConnectionString))
             {
                 conn.Open();
-                using (var rdr = LoginPlugin.Instance.DataApi.ExecuteReader(conn, sqlString))
+                using (var rdr = LoginPlugin.Instance.DatabaseApi.ExecuteReader(conn, sqlString))
                 {
                     if (rdr.Read() && !rdr.IsDBNull(0))
                     {
