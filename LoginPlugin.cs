@@ -66,13 +66,13 @@ namespace SS.Login
                 })
                 ;
 
-            service.ApiGet += Service_ApiGet;
-            service.ApiPost += Service_ApiPost;
+            service.RestApiGet += Service_RestApiGet;
+            service.RestApiPost += Service_RestApiPost;
 
             Instance = this;
         }
 
-        private object Service_ApiGet(object sender, ApiEventArgs args)
+        private object Service_RestApiGet(object sender, RestApiEventArgs args)
         {
             if (!string.IsNullOrEmpty(args.RouteResource) && !string.IsNullOrEmpty(args.RouteId))
             {
@@ -93,7 +93,7 @@ namespace SS.Login
             throw new Exception("请求的资源不在服务器上");
         }
 
-        private static object Service_ApiPost(object sender, ApiEventArgs args)
+        private static object Service_RestApiPost(object sender, RestApiEventArgs args)
         {
             var request = args.Request;
 
