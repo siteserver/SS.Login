@@ -13,7 +13,9 @@ namespace SS.Login.Provider
             new TableColumn
             {
                 AttributeName = nameof(OAuthInfo.Id),
-                DataType = DataType.Integer
+                DataType = DataType.Integer,
+                IsPrimaryKey = true,
+                IsIdentity = true
             },
             new TableColumn
             {

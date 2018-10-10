@@ -19,7 +19,7 @@ namespace SS.Login.Pages
 
         public void Page_Load(object sender, EventArgs e)
         {
-            if (!LoginPlugin.Instance.AdminApi.HasSystemPermissions(LoginPlugin.PluginId))
+            if (!LoginPlugin.Instance.Request.AdminPermissions.HasSystemPermissions(LoginPlugin.PluginId))
             {
                 HttpContext.Current.Response.Write("<h1>未授权访问</h1>");
                 HttpContext.Current.Response.End();

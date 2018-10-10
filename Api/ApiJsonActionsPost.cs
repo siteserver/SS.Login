@@ -53,14 +53,14 @@ namespace SS.Login.Api
             var token = request.GetPostString("token");
             var password = request.GetPostString("password");
 
-            var userName = request.GetUserNameByToken(token);
-            if (string.IsNullOrEmpty(userName))
+            var accessToken = LoginPlugin.Instance.UserApi.ParseAccessToken(token);
+            if (accessToken == null || accessToken.UserId == 0 || string.IsNullOrEmpty(accessToken.UserName))
             {
                 throw new Exception("用户认证失败");
             }
 
             string errorMessage;
-            var isSuccess = LoginPlugin.Instance.UserApi.ChangePassword(userName, password, out errorMessage);
+            var isSuccess = LoginPlugin.Instance.UserApi.ChangePassword(accessToken.UserName, password, out errorMessage);
 
             return new
             {
@@ -76,7 +76,8 @@ namespace SS.Login.Api
                 throw new Exception("用户认证失败");
             }
 
-            var userInfo = request.UserInfo;
+            var userInfo = LoginPlugin.Instance.UserApi.GetUserInfoByUserId(request.UserId);
+            
             if (userInfo == null)
             {
                 throw new Exception("用户认证失败");
@@ -97,38 +98,6 @@ namespace SS.Login.Api
             if (request.GetPostString("birthday") != null)
             {
                 userInfo.Birthday = request.GetPostString("birthday");
-            }
-            if (request.GetPostString("signature") != null)
-            {
-                userInfo.Signature = request.GetPostString("signature");
-            }
-            if (request.GetPostString("organization") != null)
-            {
-                userInfo.Organization = request.GetPostString("organization");
-            }
-            if (request.GetPostString("department") != null)
-            {
-                userInfo.Department = request.GetPostString("department");
-            }
-            if (request.GetPostString("position") != null)
-            {
-                userInfo.Position = request.GetPostString("position");
-            }
-            if (request.GetPostString("education") != null)
-            {
-                userInfo.Education = request.GetPostString("education");
-            }
-            if (request.GetPostString("graduation") != null)
-            {
-                userInfo.Graduation = request.GetPostString("graduation");
-            }
-            if (request.GetPostString("address") != null)
-            {
-                userInfo.Address = request.GetPostString("address");
-            }
-            if (request.GetPostString("interests") != null)
-            {
-                userInfo.Interests = request.GetPostString("interests");
             }
             if (request.GetPostString("mobile") != null)
             {
@@ -204,7 +173,7 @@ namespace SS.Login.Api
                 var userInfo = LoginPlugin.Instance.UserApi.GetUserInfoByMobile(mobile);
                 if (userInfo != null)
                 {
-                    token = request.GetUserTokenByUserName(userInfo.UserName);
+                    token = LoginPlugin.Instance.UserApi.GetAccessToken(userInfo.Id, userInfo.UserName, DateTime.Now.AddDays(7));
                 }
             }
 
