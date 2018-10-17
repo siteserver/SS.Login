@@ -1,4 +1,6 @@
-﻿namespace SS.Login.Provider
+﻿using SiteServer.Plugin;
+
+namespace SS.Login.Provider
 {
     public static class Dao
     {
@@ -6,10 +8,10 @@
         {
             var count = 0;
 
-            using (var conn = LoginPlugin.Instance.DatabaseApi.GetConnection(LoginPlugin.Instance.ConnectionString))
+            using (var conn = Context.DatabaseApi.GetConnection(Context.ConnectionString))
             {
                 conn.Open();
-                using (var rdr = LoginPlugin.Instance.DatabaseApi.ExecuteReader(conn, sqlString))
+                using (var rdr = Context.DatabaseApi.ExecuteReader(conn, sqlString))
                 {
                     if (rdr.Read() && !rdr.IsDBNull(0))
                     {

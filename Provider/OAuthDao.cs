@@ -37,8 +37,8 @@ namespace SS.Login.Provider
             }
         };
 
-        private static string ConnectionString => LoginPlugin.Instance.ConnectionString;
-        private static IDatabaseApi DataApi => LoginPlugin.Instance.DatabaseApi;
+        private static string ConnectionString => Context.ConnectionString;
+        private static IDatabaseApi DataApi => Context.DatabaseApi;
 
         public static int Insert(OAuthInfo loginInfo)
         {

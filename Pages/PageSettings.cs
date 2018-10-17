@@ -19,7 +19,7 @@ namespace SS.Login.Pages
 
         public void Page_Load(object sender, EventArgs e)
         {
-            if (!LoginPlugin.Instance.Request.AdminPermissions.HasSystemPermissions(LoginPlugin.PluginId))
+            if (!LoginPlugin.Request.AdminPermissions.HasSystemPermissions(LoginPlugin.PluginId))
             {
                 HttpContext.Current.Response.Write("<h1>未授权访问</h1>");
                 HttpContext.Current.Response.End();
@@ -66,7 +66,7 @@ namespace SS.Login.Pages
             _configInfo.RegisterFields = registerFields;
             _configInfo.RegisterSuccessMessage = TbRegisterSuccessMessage.Text;
 
-            LoginPlugin.Instance.ConfigApi.SetConfig(0, _configInfo);
+            LoginPlugin.ConfigApi.SetConfig(LoginPlugin.PluginId, 0, _configInfo);
 
             LtlMessage.Text = Utils.GetMessageHtml("用户中心设置修改成功！", true);
         }

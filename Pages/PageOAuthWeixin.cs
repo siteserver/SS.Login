@@ -24,7 +24,7 @@ namespace SS.Login.Pages
 
         public void Page_Load(object sender, EventArgs e)
         {
-            if (!LoginPlugin.Instance.Request.AdminPermissions.HasSystemPermissions(LoginPlugin.PluginId))
+            if (!LoginPlugin.Request.AdminPermissions.HasSystemPermissions(LoginPlugin.PluginId))
             {
                 HttpContext.Current.Response.Write("<h1>未授权访问</h1>");
                 HttpContext.Current.Response.End();
@@ -57,7 +57,7 @@ namespace SS.Login.Pages
             _configInfo.WeixinAppId = TbAppId.Text;
             _configInfo.WeixinAppSecret = TbAppSecret.Text;
 
-            LoginPlugin.Instance.ConfigApi.SetConfig(0, _configInfo);
+            LoginPlugin.ConfigApi.SetConfig(LoginPlugin.PluginId, 0, _configInfo);
 
             Response.Redirect(PageOAuth.GetRedirectUrl());
         }

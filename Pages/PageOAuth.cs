@@ -24,7 +24,7 @@ namespace SS.Login.Pages
 
         public void Page_Load(object sender, EventArgs e)
         {
-            if (!LoginPlugin.Instance.Request.AdminPermissions.HasSystemPermissions(LoginPlugin.PluginId))
+            if (!LoginPlugin.Request.AdminPermissions.HasSystemPermissions(LoginPlugin.PluginId))
             {
                 HttpContext.Current.Response.Write("<h1>未授权访问</h1>");
                 HttpContext.Current.Response.End();
@@ -38,7 +38,7 @@ namespace SS.Login.Pages
             LtlWeibo.Text = _configInfo.IsWeibo ? @"<span class=""label label-primary"">已开通</span>" : "未开通";
             if (_configInfo.IsWeibo)
             {
-                var url = LoginPlugin.Instance.GetOAuthLoginUrl(OAuthType.Weibo, _configInfo.HomeUrl);
+                var url = LoginPlugin.GetOAuthLoginUrl(OAuthType.Weibo, _configInfo.HomeUrl);
                 LtlWeibo.Text +=
                     $@"<a class=""m-l-10"" href=""{url}"" target=""_blank"" onclick=""event.stopPropagation();"">测试</a>";
             }
@@ -46,7 +46,7 @@ namespace SS.Login.Pages
             LtlWeixin.Text = _configInfo.IsWeixin ? @"<span class=""label label-primary"">已开通</span>" : "未开通";
             if (_configInfo.IsWeixin)
             {
-                var url = LoginPlugin.Instance.GetOAuthLoginUrl(OAuthType.Weixin, _configInfo.HomeUrl);
+                var url = LoginPlugin.GetOAuthLoginUrl(OAuthType.Weixin, _configInfo.HomeUrl);
                 LtlWeixin.Text +=
                     $@"<a class=""m-l-10"" href=""{url}"" target=""_blank"" onclick=""event.stopPropagation();"">测试</a>";
             }
@@ -54,7 +54,7 @@ namespace SS.Login.Pages
             LtlQq.Text = _configInfo.IsQq ? @"<span class=""label label-primary"">已开通</span>" : "未开通";
             if (_configInfo.IsQq)
             {
-                var url = LoginPlugin.Instance.GetOAuthLoginUrl(OAuthType.Qq, _configInfo.HomeUrl);
+                var url = LoginPlugin.GetOAuthLoginUrl(OAuthType.Qq, _configInfo.HomeUrl);
                 LtlQq.Text +=
                     $@"<a class=""m-l-10"" href=""{url}"" target=""_blank"" onclick=""event.stopPropagation();"">测试</a>";
             }

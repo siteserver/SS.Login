@@ -36,11 +36,11 @@ namespace SS.Login.Parse
                 var value = context.StlAttributes[name];
                 if (Utils.EqualsIgnoreCase(name, AttributeType))
                 {
-                    type = LoginPlugin.Instance.ParseApi.ParseAttributeValue(value, context);
+                    type = Context.ParseApi.ParseAttributeValue(value, context);
                 }
                 else if (Utils.EqualsIgnoreCase(name, AttributeRedirectUrl))
                 {
-                    redirectUrl = LoginPlugin.Instance.ParseApi.ParseAttributeValue(value, context);
+                    redirectUrl = Context.ParseApi.ParseAttributeValue(value, context);
                 }
                 else
                 {
@@ -50,7 +50,7 @@ namespace SS.Login.Parse
 
             if (string.IsNullOrEmpty(redirectUrl))
             {
-                redirectUrl = LoginPlugin.Instance.ParseApi.GetCurrentUrl(context);
+                redirectUrl = Context.ParseApi.GetCurrentUrl(context);
             }
 
             string text;
@@ -88,7 +88,7 @@ namespace SS.Login.Parse
                 stlAnchor.Attributes.Add("onclick", onClick);
             }
 
-            stlAnchor.InnerHtml = LoginPlugin.Instance.ParseApi.Parse(context.StlInnerHtml, context);
+            stlAnchor.InnerHtml = Context.ParseApi.Parse(context.StlInnerHtml, context);
             if (string.IsNullOrWhiteSpace(stlAnchor.InnerHtml))
             {
                 stlAnchor.InnerHtml = text;
@@ -98,12 +98,12 @@ namespace SS.Login.Parse
 
         public static string GetApiUrlLogin()
         {
-            return $"{LoginPlugin.Instance.PluginApi.PluginApiUrl}/actions/{nameof(Login)}";
+            return $"{Context.PluginApi.GetPluginApiUrl(LoginPlugin.PluginId)}/actions/{nameof(Login)}";
         }
 
         public static string GetOAuthApiUrl(OAuthType type)
         {
-            return $"{LoginPlugin.Instance.PluginApi.PluginApiUrl}/{nameof(OAuth)}/{type.Value}";
+            return $"{Context.PluginApi.GetPluginApiUrl(LoginPlugin.PluginId)}/{nameof(OAuth)}/{type.Value}";
         }
 
         public static object Login(IRequest request)
@@ -114,23 +114,23 @@ namespace SS.Login.Parse
             IUserInfo userInfo;
             string userName;
             string errorMessage;
-            if (!LoginPlugin.Instance.UserApi.Validate(account, password, out userName, out errorMessage))
+            if (!Context.UserApi.Validate(account, password, out userName, out errorMessage))
             {
-                userInfo = LoginPlugin.Instance.UserApi.GetUserInfoByUserName(userName);
+                userInfo = Context.UserApi.GetUserInfoByUserName(userName);
                 if (userInfo != null)
                 {
                     userInfo.CountOfFailedLogin += 1;
                     userInfo.LastActivityDate = DateTime.Now;
-                    LoginPlugin.Instance.UserApi.Update(userInfo);
+                    Context.UserApi.Update(userInfo);
                 }
                 throw new Exception(errorMessage);
             }
 
-            userInfo = LoginPlugin.Instance.UserApi.GetUserInfoByUserName(userName);
+            userInfo = Context.UserApi.GetUserInfoByUserName(userName);
             userInfo.CountOfFailedLogin = 0;
             userInfo.CountOfLogin += 1;
             userInfo.LastActivityDate = DateTime.Now;
-            LoginPlugin.Instance.UserApi.Update(userInfo);
+            Context.UserApi.Update(userInfo);
 
             request.UserLogin(userName, true);
 
@@ -203,14 +203,14 @@ namespace SS.Login.Parse
                 userName = OAuthDao.GetUserName(OAuthType.Weibo.Value, uniqueId);
                 if (string.IsNullOrEmpty(userName))
                 {
-                    var userInfo = LoginPlugin.Instance.UserApi.NewInstance();
-                    userInfo.UserName = LoginPlugin.Instance.UserApi.IsUserNameExists(name) ? Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "") : name;
+                    var userInfo = Context.UserApi.NewInstance();
+                    userInfo.UserName = Context.UserApi.IsUserNameExists(name) ? Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "") : name;
                     userInfo.DisplayName = screenName;
                     userInfo.AvatarUrl = avatarLarge;
                     userInfo.Gender = gender;
 
                     string errorMessage;
-                    LoginPlugin.Instance.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
+                    Context.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
                     userName = userInfo.UserName;
 
                     OAuthDao.Insert(new OAuthInfo
@@ -234,14 +234,14 @@ namespace SS.Login.Parse
                 userName = OAuthDao.GetUserName(OAuthType.Weixin.Value, unionid);
                 if (string.IsNullOrEmpty(userName))
                 {
-                    var userInfo = LoginPlugin.Instance.UserApi.NewInstance();
-                    userInfo.UserName = LoginPlugin.Instance.UserApi.IsUserNameExists(nickname) ? Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "") : nickname;
+                    var userInfo = Context.UserApi.NewInstance();
+                    userInfo.UserName = Context.UserApi.IsUserNameExists(nickname) ? Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "") : nickname;
                     userInfo.DisplayName = nickname;
                     userInfo.AvatarUrl = headimgurl;
                     userInfo.Gender = gender;
 
                     string errorMessage;
-                    LoginPlugin.Instance.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
+                    Context.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
                     userName = userInfo.UserName;
 
                     OAuthDao.Insert(new OAuthInfo
@@ -265,14 +265,14 @@ namespace SS.Login.Parse
                 userName = OAuthDao.GetUserName(OAuthType.Qq.Value, uniqueId);
                 if (string.IsNullOrEmpty(userName))
                 {
-                    var userInfo = LoginPlugin.Instance.UserApi.NewInstance();
-                    userInfo.UserName = LoginPlugin.Instance.UserApi.IsUserNameExists(displayName) ? Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "") : displayName;
+                    var userInfo = Context.UserApi.NewInstance();
+                    userInfo.UserName = Context.UserApi.IsUserNameExists(displayName) ? Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "") : displayName;
                     userInfo.DisplayName = displayName;
                     userInfo.AvatarUrl = avatarUrl;
                     userInfo.Gender = gender;
 
                     string errorMessage;
-                    LoginPlugin.Instance.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
+                    Context.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
                     userName = userInfo.UserName;
 
                     OAuthDao.Insert(new OAuthInfo

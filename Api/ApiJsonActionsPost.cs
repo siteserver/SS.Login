@@ -28,7 +28,7 @@ namespace SS.Login.Api
             {
                 throw new Exception("确认密码与新密码不一致，请重新输入");
             }
-            if (string.IsNullOrEmpty(password) || !LoginPlugin.Instance.UserApi.Validate(request.UserName, password, out userName, out errorMessage))
+            if (string.IsNullOrEmpty(password) || !Context.UserApi.Validate(request.UserName, password, out userName, out errorMessage))
             {
                 throw new Exception("原密码输入错误，请重新输入");
             }
@@ -37,7 +37,7 @@ namespace SS.Login.Api
                 throw new Exception("新密码不能与原密码一致，请重新输入");
             }
 
-            if (LoginPlugin.Instance.UserApi.ChangePassword(request.UserName, newPassword, out errorMessage))
+            if (Context.UserApi.ChangePassword(request.UserName, newPassword, out errorMessage))
             {
                 return new
                 {
@@ -53,14 +53,14 @@ namespace SS.Login.Api
             var token = request.GetPostString("token");
             var password = request.GetPostString("password");
 
-            var accessToken = LoginPlugin.Instance.UserApi.ParseAccessToken(token);
+            var accessToken = Context.UserApi.ParseAccessToken(token);
             if (accessToken == null || accessToken.UserId == 0 || string.IsNullOrEmpty(accessToken.UserName))
             {
                 throw new Exception("用户认证失败");
             }
 
             string errorMessage;
-            var isSuccess = LoginPlugin.Instance.UserApi.ChangePassword(accessToken.UserName, password, out errorMessage);
+            var isSuccess = Context.UserApi.ChangePassword(accessToken.UserName, password, out errorMessage);
 
             return new
             {
@@ -76,7 +76,7 @@ namespace SS.Login.Api
                 throw new Exception("用户认证失败");
             }
 
-            var userInfo = LoginPlugin.Instance.UserApi.GetUserInfoByUserId(request.UserId);
+            var userInfo = Context.UserApi.GetUserInfoByUserId(request.UserId);
             
             if (userInfo == null)
             {
@@ -104,11 +104,11 @@ namespace SS.Login.Api
                 var mobile = request.GetPostString("mobile");
                 if (mobile != userInfo.Mobile)
                 {
-                    var exists = LoginPlugin.Instance.UserApi.IsMobileExists(mobile);
+                    var exists = Context.UserApi.IsMobileExists(mobile);
                     if (!exists)
                     {
                         userInfo.Mobile = mobile;
-                        LoginPlugin.Instance.UserApi.AddLog(userInfo.UserName, "修改手机", string.Empty);
+                        Context.UserApi.AddLog(userInfo.UserName, "修改手机", string.Empty);
                     }
                     else
                     {
@@ -121,11 +121,11 @@ namespace SS.Login.Api
                 var email = request.GetPostString("email");
                 if (email != userInfo.Email)
                 {
-                    var exists = LoginPlugin.Instance.UserApi.IsEmailExists(email);
+                    var exists = Context.UserApi.IsEmailExists(email);
                     if (!exists)
                     {
                         userInfo.Email = email;
-                        LoginPlugin.Instance.UserApi.AddLog(userInfo.UserName, "修改邮箱", string.Empty);
+                        Context.UserApi.AddLog(userInfo.UserName, "修改邮箱", string.Empty);
                     }
                     else
                     {
@@ -134,7 +134,7 @@ namespace SS.Login.Api
                 }
             }
 
-            LoginPlugin.Instance.UserApi.Update(userInfo);
+            Context.UserApi.Update(userInfo);
             return userInfo;
         }
 
@@ -143,7 +143,7 @@ namespace SS.Login.Api
             var mobile = request.GetPostString("mobile");
             return new
             {
-                Exists = LoginPlugin.Instance.UserApi.IsMobileExists(mobile)
+                Exists = Context.UserApi.IsMobileExists(mobile)
             };
         }
 
@@ -151,7 +151,7 @@ namespace SS.Login.Api
         {
             var password = request.GetPostString("password");
             string errorMessage;
-            var isCorrect = LoginPlugin.Instance.UserApi.IsPasswordCorrect(password, out errorMessage);
+            var isCorrect = Context.UserApi.IsPasswordCorrect(password, out errorMessage);
             return new
             {
                 IsCorrect = isCorrect,
@@ -170,10 +170,10 @@ namespace SS.Login.Api
             var token = string.Empty;
             if (isCorrect)
             {
-                var userInfo = LoginPlugin.Instance.UserApi.GetUserInfoByMobile(mobile);
+                var userInfo = Context.UserApi.GetUserInfoByMobile(mobile);
                 if (userInfo != null)
                 {
-                    token = LoginPlugin.Instance.UserApi.GetAccessToken(userInfo.Id, userInfo.UserName, DateTime.Now.AddDays(7));
+                    token = Context.UserApi.GetAccessToken(userInfo.Id, userInfo.UserName, DateTime.Now.AddDays(7));
                 }
             }
 

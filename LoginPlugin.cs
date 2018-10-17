@@ -13,9 +13,12 @@ namespace SS.Login
 {
     public class LoginPlugin : PluginBase
     {
-        public static string PluginId => Instance.Id;
+        public static string PluginId { get; private set; }
 
-        public bool IsOAuthReady(OAuthType oAuthType)
+        public static IConfigApi ConfigApi => Context.ConfigApi;
+        public static IRequest Request => Context.Request;
+
+        public static bool IsOAuthReady(OAuthType oAuthType)
         {
             var configInfo = Utils.GetConfigInfo();
             if (oAuthType == OAuthType.Weibo)
@@ -33,15 +36,15 @@ namespace SS.Login
             return false;
         }
 
-        public string GetOAuthLoginUrl(OAuthType oAuthType, string redirectUrl)
+        public static string GetOAuthLoginUrl(OAuthType oAuthType, string redirectUrl)
         {
             return $"{StlLogin.GetOAuthApiUrl(oAuthType)}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
         }
 
-        internal static LoginPlugin Instance { get; private set; }
-
         public override void Startup(IService service)
         {
+            PluginId = Id;
+
             service
                 .AddDatabaseTable(OAuthDao.TableName, OAuthDao.Columns)
                 .AddStlElementParser(StlLogin.ElementName, StlLogin.Parse)
@@ -68,8 +71,6 @@ namespace SS.Login
 
             service.RestApiGet += Service_RestApiGet;
             service.RestApiPost += Service_RestApiPost;
-
-            Instance = this;
         }
 
         private object Service_RestApiGet(object sender, RestApiEventArgs args)
