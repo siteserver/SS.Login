@@ -13,10 +13,9 @@ namespace SS.Login
 {
     public class LoginPlugin : PluginBase
     {
-        public static string PluginId { get; private set; }
+        public const string PluginId = "SS.Login";
 
         public static IConfigApi ConfigApi => Context.ConfigApi;
-        public static IRequest Request => Context.Request;
 
         public static bool IsOAuthReady(OAuthType oAuthType)
         {
@@ -43,8 +42,6 @@ namespace SS.Login
 
         public override void Startup(IService service)
         {
-            PluginId = Id;
-
             service
                 .AddDatabaseTable(OAuthDao.TableName, OAuthDao.Columns)
                 .AddStlElementParser(StlLogin.ElementName, StlLogin.Parse)

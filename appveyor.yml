@@ -1,6 +1,5 @@
 # configuration for "master" branch
--
-  branches:
+- branches:
     only:
       - master
 
@@ -9,9 +8,9 @@
   assembly_info:
     patch: true
     file: AssemblyInfo.*
-    assembly_version: "{version}"
-    assembly_file_version: "{version}"
-    assembly_informational_version: "{version}"
+    assembly_version: '{version}'
+    assembly_file_version: '{version}'
+    assembly_informational_version: '{version}'
 
   platform: Any CPU
 
@@ -30,7 +29,7 @@
     - nuget restore SS.Login.sln
 
   build:
-    project: SS.Login.sln       # path to Visual Studio solution or project
+    project: SS.Login.sln # path to Visual Studio solution or project
     publish_nuget: true
 
   artifacts:
@@ -38,16 +37,15 @@
 
   deploy:
     provider: NuGet
-    server:                  # remove to push to NuGet.org
+    server: # remove to push to NuGet.org
     api_key:
       secure: B9umZPwBVx2TMfYt7G1Eppy7XX0FkqWioXxwR+lKv5XVRc6ezjOXP8D9iuisOWBF
     skip_symbols: false
-    symbol_server:           # remove to push symbols to SymbolSource.org
+    symbol_server: # remove to push symbols to SymbolSource.org
     artifact: /.*\.nupkg/
 
 # configuration for "dev" branch
--
-  branches:
+- branches:
     only:
       - dev
 
@@ -56,9 +54,9 @@
   assembly_info:
     patch: true
     file: AssemblyInfo.*
-    assembly_version: "{version}"
-    assembly_file_version: "{version}"
-    assembly_informational_version: "{version}"
+    assembly_version: '{version}'
+    assembly_file_version: '{version}'
+    assembly_informational_version: '{version}'
 
   platform: Any CPU
 
@@ -77,25 +75,17 @@
     - nuget restore SS.Login.sln
 
   build:
-    project: SS.Login.sln       # path to Visual Studio solution or project
+    project: SS.Login.sln # path to Visual Studio solution or project
     publish_nuget: true
 
   artifacts:
-    - path: '**/*.nupkg'
+    - path: '*.nupkg'
 
   deploy:
-    - provider: NuGet
-      server: https://www.myget.org/F/siteserver/api/v2/package                 # remove to push to NuGet.org
-      api_key:
-        secure: i9vISdFyCeWbRUQw+jhcF748i4oWdeatGBrx+dJ07SDTpt7Hsk9YCRp/ha3ZXfZF
-      skip_symbols: false
-      symbol_server:           # remove to push symbols to SymbolSource.org
-      artifact: /.*\.nupkg/
-
-  notifications:
-    - provider: Webhook
-      url: http://api.siteserver.cn/v1.1/packages/SS.Login?isNightly=true
-      headers:
-        X-SiteServer-ApiKey:
-          secure: BgJi7I52wZsaeoldjE1txzqjNWIqDwUUYzH5VFoVrZUW2NlSocZlSl1uXKE2PQut
-      on_build_success: true
+    provider: NuGet
+    server: # remove to push to NuGet.org
+    api_key:
+      secure: B9umZPwBVx2TMfYt7G1Eppy7XX0FkqWioXxwR+lKv5XVRc6ezjOXP8D9iuisOWBF
+    skip_symbols: false
+    symbol_server: # remove to push symbols to SymbolSource.org
+    artifact: /.*\.nupkg/
