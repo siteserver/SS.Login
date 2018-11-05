@@ -23,8 +23,8 @@ namespace SS.Login.Parse
         {
             get
             {
-                var htmlPath = Context.PluginApi.GetPluginPath("SS.Login.Files/assets/template.html");
-                var assetsUrl = Context.PluginApi.GetPluginUrl("SS.Login.Files/assets");
+                var htmlPath = Context.PluginApi.GetPluginPath(LoginPlugin.PluginId, "SS.Login.Files/assets/template.html");
+                var assetsUrl = Context.PluginApi.GetPluginUrl(LoginPlugin.PluginId, "SS.Login.Files/assets");
                 var html = CacheUtils.Get<string>(htmlPath);
                 if (html != null) return html;
 
