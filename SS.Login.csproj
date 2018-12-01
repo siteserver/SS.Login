@@ -40,7 +40,13 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,105 +55,96 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\ApiHttpGet.cs" />
-    <Compile Include="Api\ApiJsonActionsPost.cs" />
+    <Compile Include="Controllers\ActionsController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Core\CacheUtils.cs" />
     <Compile Include="Core\QqClient.cs" />
+    <Compile Include="Core\ApiUtils.cs" />
     <Compile Include="Core\Utils.cs" />
     <Compile Include="Core\WeiboClient.cs" />
     <Compile Include="Core\WeixinClient.cs" />
     <Compile Include="LoginPlugin.cs" />
-    <Compile Include="Models\ConfigInfo.cs" />
-    <Compile Include="Models\OAuthInfo.cs" />
-    <Compile Include="Models\OAuthType.cs" />
-    <Compile Include="Pages\PageOAuth.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\PageOAuthQq.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\PageOAuthWeibo.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\PageOAuthWeixin.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\PageSettings.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Parse\StlLogin.cs" />
-    <Compile Include="Parse\ParseUtils.cs" />
-    <Compile Include="Parse\StlRegister.cs" />
-    <Compile Include="Parse\StlLogout.cs" />
+    <Compile Include="Core\Models\ConfigInfo.cs" />
+    <Compile Include="Core\Models\OAuthInfo.cs" />
+    <Compile Include="Core\Models\OAuthType.cs" />
+    <Compile Include="Core\Parse\StlLogin.cs" />
+    <Compile Include="Core\Parse\ParseUtils.cs" />
+    <Compile Include="Core\Parse\StlRegister.cs" />
+    <Compile Include="Core\Parse\StlLogout.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Provider\Dao.cs" />
-    <Compile Include="Provider\OAuthDao.cs" />
+    <Compile Include="Core\Provider\OAuthDao.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="assets\fonts\fontawesome-webfont.eot" />
+    <None Include="assets\fonts\fontawesome-webfont.ttf" />
+    <None Include="assets\fonts\fontawesome-webfont.woff" />
+    <None Include="assets\fonts\fontawesome-webfont.woff2" />
+    <None Include="assets\fonts\FontAwesome.otf" />
+    <None Include="docs\background.md" />
+    <None Include="docs\foreground.md" />
+    <None Include="docs\install.md" />
+    <None Include="docs\README.md" />
+    <None Include="docs\_sidebar.md" />
     <None Include="packages.config" />
-    <None Include="SS.Login.Files\assets\plugin-utils\fonts\fontawesome-webfont.eot" />
-    <None Include="SS.Login.Files\assets\plugin-utils\fonts\fontawesome-webfont.ttf" />
-    <None Include="SS.Login.Files\assets\plugin-utils\fonts\fontawesome-webfont.woff" />
-    <None Include="SS.Login.Files\assets\plugin-utils\fonts\fontawesome-webfont.woff2" />
-    <None Include="SS.Login.Files\assets\plugin-utils\fonts\FontAwesome.otf" />
-    <None Include="SS.Login.Files\assets\plugin-utils\fonts\ionicons.eot" />
-    <None Include="SS.Login.Files\assets\plugin-utils\fonts\ionicons.ttf" />
-    <None Include="SS.Login.Files\assets\plugin-utils\fonts\ionicons.woff" />
-    <None Include="SS.Login.Files\docs\background.md" />
-    <None Include="SS.Login.Files\docs\foreground.md" />
-    <None Include="SS.Login.Files\docs\install.md" />
-    <None Include="SS.Login.Files\docs\README.md" />
-    <None Include="SS.Login.Files\docs\_sidebar.md" />
     <None Include="SS.Login.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SS.Login.Files\assets\cleanslate.css" />
-    <Content Include="SS.Login.Files\assets\cleanslate.min.css" />
-    <Content Include="SS.Login.Files\assets\docs\login001.png" />
-    <Content Include="SS.Login.Files\assets\docs\login002.png" />
-    <Content Include="SS.Login.Files\assets\docs\login003.png" />
-    <Content Include="SS.Login.Files\assets\docs\login004.png" />
-    <Content Include="SS.Login.Files\assets\docs\login005.png" />
-    <Content Include="SS.Login.Files\assets\docs\login006.png" />
-    <Content Include="SS.Login.Files\assets\images\login_qq.png" />
-    <Content Include="SS.Login.Files\assets\images\login_weibo.png" />
-    <Content Include="SS.Login.Files\assets\images\login_weixin.png" />
-    <Content Include="SS.Login.Files\assets\images\times.png" />
-    <Content Include="SS.Login.Files\assets\js\axios-0.17.1.min.js" />
-    <Content Include="SS.Login.Files\assets\js\device.min.js" />
-    <Content Include="SS.Login.Files\assets\js\jquery.min.js" />
-    <Content Include="SS.Login.Files\assets\js\sweetalert.min.js" />
-    <Content Include="SS.Login.Files\assets\js\vee-validate-2.0.3.js" />
-    <Content Include="SS.Login.Files\assets\js\vue-2.1.10.min.js" />
-    <Content Include="SS.Login.Files\assets\plugin-utils\css\bootstrap.min.css" />
-    <Content Include="SS.Login.Files\assets\plugin-utils\css\font-awesome.min.css" />
-    <Content Include="SS.Login.Files\assets\plugin-utils\css\ionicons.min.css" />
-    <Content Include="SS.Login.Files\assets\plugin-utils\css\plugin-utils.css" />
-    <Content Include="SS.Login.Files\assets\plugin-utils\fonts\fontawesome-webfont.svg" />
-    <Content Include="SS.Login.Files\assets\plugin-utils\fonts\ionicons.svg" />
-    <Content Include="SS.Login.Files\assets\plugin-utils\js\bootstrap.min.js" />
-    <Content Include="SS.Login.Files\assets\plugin-utils\js\jquery.min.js" />
-    <Content Include="SS.Login.Files\assets\plugin-utils\js\plugin-utils.js" />
-    <Content Include="SS.Login.Files\assets\script.js" />
-    <Content Include="SS.Login.Files\assets\style.css" />
-    <Content Include="SS.Login.Files\assets\style.min.css" />
-    <Content Include="SS.Login.Files\assets\template.html" />
-    <Content Include="SS.Login.Files\assets\template.min.html" />
-    <Content Include="SS.Login.Files\docs\assets\background\01.png" />
-    <Content Include="SS.Login.Files\docs\assets\background\02.png" />
-    <Content Include="SS.Login.Files\docs\assets\background\03.png" />
-    <Content Include="SS.Login.Files\docs\assets\favicon.png" />
-    <Content Include="SS.Login.Files\docs\assets\install\01.png" />
-    <Content Include="SS.Login.Files\docs\assets\install\02.png" />
-    <Content Include="SS.Login.Files\docs\assets\install\03.png" />
-    <Content Include="SS.Login.Files\docs\assets\install\04.png" />
-    <Content Include="SS.Login.Files\docs\index.html" />
-    <Content Include="SS.Login.Files\docs\logo.svg" />
-    <Content Include="SS.Login.Files\PageOAuth.aspx" />
-    <Content Include="SS.Login.Files\PageOAuthQq.aspx" />
-    <Content Include="SS.Login.Files\PageOAuthWeibo.aspx" />
-    <Content Include="SS.Login.Files\PageOAuthWeixin.aspx" />
-    <Content Include="SS.Login.Files\PageSettings.aspx" />
+    <Content Include="assets\cleanslate.css" />
+    <Content Include="assets\cleanslate.min.css" />
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\font-awesome-4.7.0.min.css" />
+    <Content Include="assets\css\siteserver.min.css" />
+    <Content Include="assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\images\loading.gif" />
+    <Content Include="assets\images\login_qq.png" />
+    <Content Include="assets\images\login_weibo.png" />
+    <Content Include="assets\images\login_weixin.png" />
+    <Content Include="assets\images\times.png" />
+    <Content Include="assets\js\axios-0.17.1.min.js" />
+    <Content Include="assets\js\device.min.js" />
+    <Content Include="assets\js\es6-promise.auto.min.js" />
+    <Content Include="assets\js\jquery.min.js" />
+    <Content Include="assets\js\sweetalert.min.js" />
+    <Content Include="assets\js\utils.js" />
+    <Content Include="assets\js\vee-validate-2.0.3.js" />
+    <Content Include="assets\js\vue-2.1.10.min.js" />
+    <Content Include="assets\lib\axios-0.18.0.min.js" />
+    <Content Include="assets\lib\es6-promise.auto.min.js" />
+    <Content Include="assets\lib\jquery-1.9.1.min.js" />
+    <Content Include="assets\lib\layer-3.1.1\layer.js" />
+    <Content Include="assets\lib\layer-3.1.1\mobile\layer.js" />
+    <Content Include="assets\lib\layer-3.1.1\mobile\need\layer.css" />
+    <Content Include="assets\lib\layer-3.1.1\theme\default\icon-ext.png" />
+    <Content Include="assets\lib\layer-3.1.1\theme\default\icon.png" />
+    <Content Include="assets\lib\layer-3.1.1\theme\default\layer.css" />
+    <Content Include="assets\lib\layer-3.1.1\theme\default\loading-0.gif" />
+    <Content Include="assets\lib\layer-3.1.1\theme\default\loading-1.gif" />
+    <Content Include="assets\lib\layer-3.1.1\theme\default\loading-2.gif" />
+    <Content Include="assets\lib\lodash-4.17.10.min.js" />
+    <Content Include="assets\lib\md5-2.10.0.min.js" />
+    <Content Include="assets\lib\sweetalert2-7.28.4.all.min.js" />
+    <Content Include="assets\lib\vee-validate-2.1.0.js" />
+    <Content Include="assets\lib\vee-validate-locale-zh_CN-2.1.0.js" />
+    <Content Include="assets\lib\vue-2.5.16.min.js" />
+    <Content Include="assets\script.js" />
+    <Content Include="assets\style.css" />
+    <Content Include="assets\style.min.css" />
+    <Content Include="assets\template.html" />
+    <Content Include="assets\template.min.html" />
+    <Content Include="docs\assets\background\01.png" />
+    <Content Include="docs\assets\background\02.png" />
+    <Content Include="docs\assets\background\03.png" />
+    <Content Include="docs\assets\favicon.png" />
+    <Content Include="docs\assets\install\01.png" />
+    <Content Include="docs\assets\install\02.png" />
+    <Content Include="docs\assets\install\03.png" />
+    <Content Include="docs\assets\install\04.png" />
+    <Content Include="docs\index.html" />
+    <Content Include="docs\logo.svg" />
+    <Content Include="pages\settings.html" />
+    <Content Include="pages\settings.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json.Linq;
 using SiteServer.Plugin;
-using SS.Login.Models;
-using SS.Login.Parse;
+using SS.Login.Core.Models;
 
 namespace SS.Login.Core
 {
@@ -21,7 +20,7 @@ namespace SS.Login.Core
         {
             AppKey = appKey;
             AppSecret = appSecret;
-            RedirectUrl = $"{Context.PluginApi.GetPluginApiUrl(LoginPlugin.PluginId)}/{nameof(StlLogin.OAuthRedirect)}/{OAuthType.Weibo.Value}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
+            RedirectUrl = ApiUtils.GetAuthRedirectUrl(OAuthType.Weibo, redirectUrl);
         }
 
         public string GetAuthorizationUrl()

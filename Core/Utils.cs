@@ -7,7 +7,7 @@ using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SiteServer.Plugin;
-using SS.Login.Models;
+using SS.Login.Core.Models;
 
 namespace SS.Login.Core
 {
@@ -119,6 +119,25 @@ namespace SS.Login.Core
             {
                 return ex.Message;
             }
+        }
+
+        public static List<string> StringCollectionToStringList(string collection)
+        {
+            return StringCollectionToStringList(collection, ',');
+        }
+
+        private static List<string> StringCollectionToStringList(string collection, char split)
+        {
+            var list = new List<string>();
+            if (!string.IsNullOrEmpty(collection))
+            {
+                var array = collection.Split(split);
+                foreach (var s in array)
+                {
+                    list.Add(s);
+                }
+            }
+            return list;
         }
     }
 }
