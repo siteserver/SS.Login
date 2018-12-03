@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Web;
 using Newtonsoft.Json.Linq;
-using SiteServer.Plugin;
 using SS.Login.Core.Models;
 
 namespace SS.Login.Core
@@ -19,7 +18,7 @@ namespace SS.Login.Core
         {
             AppId = appId;
             AppKey = appKey;
-            ApiUtils.GetAuthRedirectUrl(OAuthType.Qq, redirectUrl);
+            RedirectUrl = ApiUtils.GetAuthRedirectUrl(OAuthType.Qq, redirectUrl);
         }
 
         public string GetAuthorizationUrl()
