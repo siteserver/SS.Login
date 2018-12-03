@@ -130,7 +130,6 @@
     <Content Include="assets\lib\vue-2.5.16.min.js" />
     <Content Include="assets\script.js" />
     <Content Include="assets\style.css" />
-    <Content Include="assets\style.min.css" />
     <Content Include="assets\template.html" />
     <Content Include="docs\assets\background\01.png" />
     <Content Include="docs\assets\background\02.png" />
