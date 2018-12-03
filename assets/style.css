@@ -117,6 +117,7 @@ div.ss-auth .social_login .qq {
 div.ss-auth .social_login .icon_title {
   display: block !important;
   padding: 5px 0 !important;
+  text-decoration: none !important;
   float: left !important;
   font-weight: bold !important;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
@@ -203,6 +204,7 @@ div.ss-auth .checkbox {
   overflow: hidden !important;
 }
 
-div.ss-auth input.is-danger, textarea.is-danger {
+div.ss-auth input.is-danger,
+textarea.is-danger {
   border-color: #ff3860 !important;
 }

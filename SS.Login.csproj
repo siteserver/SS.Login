@@ -132,7 +132,6 @@
     <Content Include="assets\style.css" />
     <Content Include="assets\style.min.css" />
     <Content Include="assets\template.html" />
-    <Content Include="assets\template.min.html" />
     <Content Include="docs\assets\background\01.png" />
     <Content Include="docs\assets\background\02.png" />
     <Content Include="docs\assets\background\03.png" />

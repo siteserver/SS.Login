@@ -8,8 +8,12 @@ namespace SS.Login.Core.Parse
         private StlRegister() { }
         public const string ElementName = "stl:register";
 
+        public const string AttributeRedirectUrl = "redirectUrl";
+
         public static string Parse(IParseContext context)
         {
+            var redirectUrl = string.Empty;
+
             ParseUtils.RegisterBodyHtml(context);
 
             var stlAnchor = new HtmlAnchor();
@@ -17,7 +21,19 @@ namespace SS.Login.Core.Parse
             foreach (var name in context.StlAttributes.AllKeys)
             {
                 var value = context.StlAttributes[name];
-                stlAnchor.Attributes.Add(name, value);
+                if (Utils.EqualsIgnoreCase(name, AttributeRedirectUrl))
+                {
+                    redirectUrl = Context.ParseApi.ParseAttributeValue(value, context);
+                }
+                else
+                {
+                    stlAnchor.Attributes.Add(name, value);
+                }
+            }
+
+            if (string.IsNullOrEmpty(redirectUrl))
+            {
+                redirectUrl = Context.ParseApi.GetCurrentUrl(context);
             }
 
             stlAnchor.InnerHtml = Context.ParseApi.Parse(context.StlInnerHtml, context);

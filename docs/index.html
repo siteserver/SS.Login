@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
   <meta charset="UTF-8">
@@ -7,28 +7,48 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="SiteServer CMS 登录插件，实现登录、注册、退出等功能，同时集成微信、微博、QQ第三方一键登录">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
-  <link rel="icon" type="image/png" href="./assets/favicon.png">
-  <style>
-    * {
-      font-family: 'Microsoft YaHei'
-    }
-  </style>
+  <link rel="icon" type="image/png" href="https://assets.siteserver.cn/images/favicon.png">
+  <link rel="stylesheet" href="https://assets.siteserver.cn/lib/docsify-4.7.0/themes/vue.css">
+  <link rel="stylesheet" href="https://assets.siteserver.cn/lib/docsify-4.7.0/custom.css">
 </head>
 
 <body>
   <div id="app">载入中，请稍后...</div>
   <script>
+    var githubUrl = 'https://github.com/siteserver/SS.Login/edit/dev/docs/';
     window.$docsify = {
       loadSidebar: true,
       subMaxLevel: 1,
+      mergeNavbar: true,
+      auto2top: true,
       search: {
         placeholder: '搜索',
-      }
+      },
+      plugins: [
+        function (hook, vm) {
+          hook.beforeEach(function (html) {
+            var url = githubUrl + vm.route.file;
+            var github =
+              "<div data-tooltip-title=\"Star it if you like\" data-tooltip-position=\"top\" class=\"tool-tip\"><iframe src=\"https://ghbtns.com/github-btn.html?user=siteserver&amp;repo=cms&amp;type=star&amp;count=true\" allowtransparency=\"true\" frameborder=\"0\" scrolling=\"0\" width=\"110\" height=\"20\" style='margin:0 10px -6px;border: none;'></iframe></div>";
+
+            var editHtml = '<a href=' + url +
+              ' class=\"tool-tip\" target=\"_blank\"><img class=\"emoji\" src=\"https://assets.siteserver.cn/lib/docsify-4.7.0/edit.png\" alt=\"Edit\"></a>';
+            return "<div class=\"tool-docs-header\">" +
+              editHtml +
+              github +
+              "</div>" +
+              '\n\n' +
+              html
+          })
+        }
+      ]
     }
   </script>
-  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
+  <script src="https://assets.siteserver.cn/lib/docsify-4.7.0/docsify.min.js"></script>
+  <script src="https://assets.siteserver.cn/lib/docsify-4.7.0/plugins/search.min.js"></script>
+  <script src="https://assets.siteserver.cn/lib/docsify-4.7.0/docsify-copy-code-2.0.2.min.js"></script>
+  <script src="https://assets.siteserver.cn/lib/prismjs-1.15.0/components/prism-http.min.js"></script>
+  <script src="https://assets.siteserver.cn/lib/prismjs-1.15.0/components/prism-json.min.js"></script>
 </body>
 
 </html>

@@ -81,7 +81,9 @@
         this.errorMessage = '';
         var $this = this;
 
-        $("body").append($("<div id='lean_overlay' style='position: fixed; z-index: 100; top: 0px; left: 0px; height: 100%; width: 100%; background: #000; display: block; opacity: 0.5;'></div>"));
+        if ($('#lean_overlay').length === 0) {
+          $("body").append($("<div id='lean_overlay' style='position: fixed; z-index: 100; top: 0px; left: 0px; height: 100%; width: 100%; background: #000; display: block; opacity: 0.5;'></div>"));
+        }
         $("#lean_overlay").click(function () {
           $this.closeModal();
         });

@@ -124,7 +124,7 @@
                 {{errors.first('weiboAppKey') }}
               </small>
             </label>
-            <input v-model="weiboAppKey" name="weiboAppKey" data-vv-as="用户注册成功提示" v-validate="'required'" :class="{'is-invalid': errors.has('weiboAppKey') }"
+            <input v-model="weiboAppKey" name="weiboAppKey" data-vv-as="App Key" v-validate="'required'" :class="{'is-invalid': errors.has('weiboAppKey') }"
               type="text" class="form-control"></input>
           </div>
           <div class="form-group">
@@ -134,8 +134,8 @@
                 {{errors.first('weiboAppSecret') }}
               </small>
             </label>
-            <input v-model="weiboAppSecret" name="weiboAppSecret" data-vv-as="用户注册成功提示" v-validate="'required'" :class="{'is-invalid': errors.has('weiboAppSecret') }"
-              type="text" class="form-control"></input>
+            <input v-model="weiboAppSecret" name="weiboAppSecret" data-vv-as="App Secret" v-validate="'required'"
+              :class="{'is-invalid': errors.has('weiboAppSecret') }" type="text" class="form-control"></input>
           </div>
 
           <hr />
@@ -168,7 +168,7 @@
                 {{errors.first('weixinAppId') }}
               </small>
             </label>
-            <input v-model="weixinAppId" name="weixinAppId" data-vv-as="用户注册成功提示" v-validate="'required'" :class="{'is-invalid': errors.has('weixinAppId') }"
+            <input v-model="weixinAppId" name="weixinAppId" data-vv-as="AppID" v-validate="'required'" :class="{'is-invalid': errors.has('weixinAppId') }"
               type="text" class="form-control"></input>
           </div>
           <div v-if="isWeixin" class="form-group">
@@ -178,7 +178,7 @@
                 {{errors.first('weixinAppSecret') }}
               </small>
             </label>
-            <input v-model="weixinAppSecret" name="weixinAppSecret" data-vv-as="用户注册成功提示" v-validate="'required'"
+            <input v-model="weixinAppSecret" name="weixinAppSecret" data-vv-as="App Secret" v-validate="'required'"
               :class="{'is-invalid': errors.has('weixinAppSecret') }" type="text" class="form-control"></input>
           </div>
 
@@ -212,7 +212,7 @@
                 {{errors.first('qqAppId') }}
               </small>
             </label>
-            <input v-model="qqAppId" name="qqAppId" data-vv-as="用户注册成功提示" v-validate="'required'" :class="{'is-invalid': errors.has('qqAppId') }"
+            <input v-model="qqAppId" name="qqAppId" data-vv-as="APP ID" v-validate="'required'" :class="{'is-invalid': errors.has('qqAppId') }"
               type="text" class="form-control"></input>
           </div>
           <div v-if="isQq" class="form-group">
@@ -222,7 +222,7 @@
                 {{errors.first('qqAppKey') }}
               </small>
             </label>
-            <input v-model="qqAppKey" name="qqAppKey" data-vv-as="用户注册成功提示" v-validate="'required'" :class="{'is-invalid': errors.has('qqAppKey') }"
+            <input v-model="qqAppKey" name="qqAppKey" data-vv-as="APP Key" v-validate="'required'" :class="{'is-invalid': errors.has('qqAppKey') }"
               type="text" class="form-control"></input>
           </div>
 
