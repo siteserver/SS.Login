@@ -1,9 +1,8 @@
 ﻿using System.Web;
 using System.Web.UI.HtmlControls;
 using SiteServer.Plugin;
-using SS.Login.Core.Models;
 
-namespace SS.Login.Core.Parse
+namespace SS.Login.Core
 {
     public class StlLogin
     {

@@ -4,8 +4,6 @@ using System.Web;
 using System.Web.Http;
 using SiteServer.Plugin;
 using SS.Login.Core;
-using SS.Login.Core.Models;
-using SS.Login.Core.Provider;
 
 namespace SS.Login.Controllers
 {
@@ -20,7 +18,7 @@ namespace SS.Login.Controllers
         {
             try
             {
-                var request = Context.GetCurrentRequest();
+                var request = Context.AuthenticatedRequest;
 
                 var config = Utils.GetConfigInfo();
                 var oAuthType = OAuthType.Parse(type);
@@ -66,7 +64,7 @@ namespace SS.Login.Controllers
         {
             try
             {
-                var request = Context.GetCurrentRequest();
+                var request = Context.AuthenticatedRequest;
 
                 var config = Utils.GetConfigInfo();
                 var oAuthType = OAuthType.Parse(type);
@@ -86,7 +84,7 @@ namespace SS.Login.Controllers
                     string uniqueId;
                     client.GetUserInfo(code, out name, out screenName, out avatarLarge, out gender, out uniqueId);
 
-                    userName = OAuthDao.GetUserName(OAuthType.Weibo.Value, uniqueId);
+                    userName = Plugin.OAuthRepository.GetUserName(OAuthType.Weibo.Value, uniqueId);
                     if (string.IsNullOrEmpty(userName))
                     {
                         var userInfo = Context.UserApi.NewInstance();
@@ -101,7 +99,7 @@ namespace SS.Login.Controllers
                         Context.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
                         userName = userInfo.UserName;
 
-                        OAuthDao.Insert(new OAuthInfo
+                        Plugin.OAuthRepository.Insert(new OAuthInfo
                         {
                             Source = OAuthType.Weibo.Value,
                             UniqueId = uniqueId,
@@ -119,7 +117,7 @@ namespace SS.Login.Controllers
                     string unionid;
                     client.GetUserInfo(code, out nickname, out headimgurl, out gender, out unionid);
 
-                    userName = OAuthDao.GetUserName(OAuthType.Weixin.Value, unionid);
+                    userName = Plugin.OAuthRepository.GetUserName(OAuthType.Weixin.Value, unionid);
                     if (string.IsNullOrEmpty(userName))
                     {
                         var userInfo = Context.UserApi.NewInstance();
@@ -134,7 +132,7 @@ namespace SS.Login.Controllers
                         Context.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
                         userName = userInfo.UserName;
 
-                        OAuthDao.Insert(new OAuthInfo
+                        Plugin.OAuthRepository.Insert(new OAuthInfo
                         {
                             Source = OAuthType.Weixin.Value,
                             UniqueId = unionid,
@@ -152,7 +150,7 @@ namespace SS.Login.Controllers
                     string uniqueId;
                     client.GetUserInfo(code, out displayName, out avatarUrl, out gender, out uniqueId);
 
-                    userName = OAuthDao.GetUserName(OAuthType.Qq.Value, uniqueId);
+                    userName = Plugin.OAuthRepository.GetUserName(OAuthType.Qq.Value, uniqueId);
                     if (string.IsNullOrEmpty(userName))
                     {
                         var userInfo = Context.UserApi.NewInstance();
@@ -167,7 +165,7 @@ namespace SS.Login.Controllers
                         Context.UserApi.Insert(userInfo, Guid.NewGuid().ToString(), out errorMessage);
                         userName = userInfo.UserName;
 
-                        OAuthDao.Insert(new OAuthInfo
+                        Plugin.OAuthRepository.Insert(new OAuthInfo
                         {
                             Source = OAuthType.Qq.Value,
                             UniqueId = uniqueId,

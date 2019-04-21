@@ -23,7 +23,7 @@ namespace SS.Login.Controllers
         {
             try
             {
-                var request = Context.GetCurrentRequest();
+                var request = Context.AuthenticatedRequest;
 
                 var userName = request.GetPostString("userName");
                 var displayName = request.GetPostString("displayName");
@@ -56,7 +56,7 @@ namespace SS.Login.Controllers
         {
             try
             {
-                var request = Context.GetCurrentRequest();
+                var request = Context.AuthenticatedRequest;
 
                 var account = request.GetPostString("account");
                 var password = request.GetPostString("password");
@@ -100,7 +100,7 @@ namespace SS.Login.Controllers
         {
             try
             {
-                var request = Context.GetCurrentRequest();
+                var request = Context.AuthenticatedRequest;
 
                 request.UserLogout();
 
@@ -117,7 +117,7 @@ namespace SS.Login.Controllers
         {
             try
             {
-                var request = Context.GetCurrentRequest();
+                var request = Context.AuthenticatedRequest;
 
                 if (!request.IsUserLoggin)
                 {
@@ -164,7 +164,7 @@ namespace SS.Login.Controllers
         {
             try
             {
-                var request = Context.GetCurrentRequest();
+                var request = Context.AuthenticatedRequest;
 
                 var token = request.GetPostString("token");
                 var password = request.GetPostString("password");
@@ -196,7 +196,7 @@ namespace SS.Login.Controllers
         {
             try
             {
-                var request = Context.GetCurrentRequest();
+                var request = Context.AuthenticatedRequest;
 
                 if (!request.IsUserLoggin)
                 {
@@ -279,7 +279,7 @@ namespace SS.Login.Controllers
         {
             try
             {
-                var request = Context.GetCurrentRequest();
+                var request = Context.AuthenticatedRequest;
 
                 var mobile = request.GetPostString("mobile");
 
@@ -299,7 +299,7 @@ namespace SS.Login.Controllers
         {
             try
             {
-                var request = Context.GetCurrentRequest();
+                var request = Context.AuthenticatedRequest;
 
                 var password = request.GetPostString("password");
                 string errorMessage;
@@ -327,7 +327,7 @@ namespace SS.Login.Controllers
         {
             try
             {
-                var request = Context.GetCurrentRequest();
+                var request = Context.AuthenticatedRequest;
 
                 var mobile = request.GetPostString("mobile");
                 var code = request.GetPostString("code");
@@ -341,7 +341,7 @@ namespace SS.Login.Controllers
                     var userInfo = Context.UserApi.GetUserInfoByMobile(mobile);
                     if (userInfo != null)
                     {
-                        token = Context.UserApi.GetAccessToken(userInfo.Id, userInfo.UserName, DateTime.Now.AddDays(7));
+                        token = Context.UserApi.GetAccessToken(userInfo.Id, userInfo.UserName, TimeSpan.FromDays(7));
                     }
                 }
 

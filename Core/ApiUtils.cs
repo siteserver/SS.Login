@@ -1,6 +1,5 @@
 ﻿using System.Web;
 using SiteServer.Plugin;
-using SS.Login.Core.Models;
 
 namespace SS.Login.Core
 {
@@ -8,32 +7,32 @@ namespace SS.Login.Core
     {
         public static string GetActionsLoginUrl()
         {
-            return Context.UtilsApi.GetApiUrl($"{LoginPlugin.PluginId}/actions/login");
+            return $"{Context.Environment.ApiUrl}/{Plugin.PluginId}/actions/login";
         }
 
         public static string GetActionsLogoutUrl()
         {
-            return Context.UtilsApi.GetApiUrl($"{LoginPlugin.PluginId}/actions/logout");
+            return $"{Context.Environment.ApiUrl}/{Plugin.PluginId}/actions/logout";
         }
 
         public static string GetActionsRegisterUrl()
         {
-            return Context.UtilsApi.GetApiUrl($"{LoginPlugin.PluginId}/actions/register");
+            return $"{Context.Environment.ApiUrl}/{Plugin.PluginId}/actions/register";
         }
 
         public static string GetAuthUrl(OAuthType type)
         {
-            return Context.UtilsApi.GetApiUrl($"{LoginPlugin.PluginId}/auth/{type.Value}");
+            return $"{Context.Environment.ApiUrl}/{Plugin.PluginId}/auth/{type.Value}";
         }
 
         public static string GetAuthUrl(OAuthType type, string redirectUrl)
         {
-            return Context.UtilsApi.GetApiUrl($"{LoginPlugin.PluginId}/auth/{type.Value}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}");
+            return $"{Context.Environment.ApiUrl}/{Plugin.PluginId}/auth/{type.Value}?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
         }
 
         public static string GetAuthRedirectUrl(OAuthType authType, string redirectUrl)
         {
-            return Context.UtilsApi.GetApiUrl($"{LoginPlugin.PluginId}/auth/{authType.Value}/redirect?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}");
+            return $"{Context.Environment.ApiUrl}/{Plugin.PluginId}/auth/{authType.Value}/redirect?redirectUrl={HttpUtility.UrlEncode(redirectUrl)}";
         }
 
         public static string GetHomeUrl()

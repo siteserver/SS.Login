@@ -7,7 +7,6 @@ using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using SiteServer.Plugin;
-using SS.Login.Core.Models;
 
 namespace SS.Login.Core
 {
@@ -17,7 +16,7 @@ namespace SS.Login.Core
 
         public static ConfigInfo GetConfigInfo()
         {
-            return Context.ConfigApi.GetConfig<ConfigInfo>(LoginPlugin.PluginId, 0) ?? new ConfigInfo();
+            return Context.ConfigApi.GetConfig<ConfigInfo>(Plugin.PluginId, 0) ?? new ConfigInfo();
         }
 
         public static string GetMessageHtml(string message, bool isSuccess)

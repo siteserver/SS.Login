@@ -1,8 +1,7 @@
 ﻿using System;
 using SiteServer.Plugin;
-using SS.Login.Core.Models;
 
-namespace SS.Login.Core.Parse
+namespace SS.Login.Core
 {
     public static class ParseUtils
     {
@@ -22,8 +21,8 @@ namespace SS.Login.Core.Parse
         {
             get
             {
-                var htmlPath = Context.PluginApi.GetPluginPath(LoginPlugin.PluginId, "assets/template.html");
-                var assetsUrl = Context.PluginApi.GetPluginUrl(LoginPlugin.PluginId, "assets");
+                var htmlPath = Context.PluginApi.GetPluginPath(Plugin.PluginId, "assets/template.html");
+                var assetsUrl = Context.PluginApi.GetPluginUrl(Plugin.PluginId, "assets");
                 var html = CacheUtils.Get<string>(htmlPath);
                 if (html != null) return html;
 

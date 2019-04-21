@@ -2,7 +2,6 @@
 using System.Web.Http;
 using SiteServer.Plugin;
 using SS.Login.Core;
-using SS.Login.Core.Models;
 
 namespace SS.Login.Controllers
 {
@@ -16,8 +15,8 @@ namespace SS.Login.Controllers
         {
             try
             {
-                var request = Context.GetCurrentRequest();
-                if (!request.IsAdminLoggin || !request.AdminPermissions.HasSystemPermissions(LoginPlugin.PluginId)) return Unauthorized();
+                var request = Context.AuthenticatedRequest;
+                if (!request.IsAdminLoggin || !request.AdminPermissions.HasSystemPermissions(Plugin.PluginId)) return Unauthorized();
 
                 var config = Utils.GetConfigInfo();
                 var urlWeibo = string.Empty;
@@ -58,8 +57,8 @@ namespace SS.Login.Controllers
         {
             try
             {
-                var request = Context.GetCurrentRequest();
-                if (!request.IsAdminLoggin || !request.AdminPermissions.HasSystemPermissions(LoginPlugin.PluginId)) return Unauthorized();
+                var request = Context.AuthenticatedRequest;
+                if (!request.IsAdminLoggin || !request.AdminPermissions.HasSystemPermissions(Plugin.PluginId)) return Unauthorized();
 
                 var config = Utils.GetConfigInfo();
 
@@ -102,7 +101,7 @@ namespace SS.Login.Controllers
                     config.QqAppKey = request.GetPostString("qqAppKey");
                 }
 
-                Context.ConfigApi.SetConfig(LoginPlugin.PluginId, 0, config);
+                Context.ConfigApi.SetConfig(Plugin.PluginId, 0, config);
 
                 var urlWeibo = string.Empty;
                 var urlWeixin = string.Empty;

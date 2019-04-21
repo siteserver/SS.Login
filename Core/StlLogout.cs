@@ -1,7 +1,7 @@
 ﻿using System.Web.UI.HtmlControls;
 using SiteServer.Plugin;
 
-namespace SS.Login.Core.Parse
+namespace SS.Login.Core
 {
     public class StlLogout
     {

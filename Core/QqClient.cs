@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Web;
 using Newtonsoft.Json.Linq;
-using SS.Login.Core.Models;
 
 namespace SS.Login.Core
 {

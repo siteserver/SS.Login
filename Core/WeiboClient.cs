@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json.Linq;
 using SiteServer.Plugin;
-using SS.Login.Core.Models;
 
 namespace SS.Login.Core
 {

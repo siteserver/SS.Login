@@ -1,148 +1,38 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AFE59F66-7C0A-4451-8E0D-D9C235DB37C3}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SS.Login</RootNamespace>
-    <AssemblyName>SS.Login</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFrameworks>net452</TargetFrameworks>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>SS.Login</PackageId>
+    <Version>1.0.0</Version>
+    <Title>用户登录插件</Title>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>SiteServer CMS</Authors>
+    <Company>SiteServer CMS</Company>
+    <Product></Product>
+    <Description>SiteServer CMS 用户登录插件</Description>
+    <PackageLicense>GPL-3.0</PackageLicense>
+    <PackageProjectUrl>https://github.com/siteserver/SS.Login</PackageProjectUrl>
+    <PackageIconUrl>https://www.siteserver.cn/docs/SS.Login/logo.svg</PackageIconUrl>
+    <Copyright>Copyright © SiteServer CMS</Copyright>
+    <PackageTags>SiteServer CMS Login Plugin</PackageTags>
+    <RepositoryUrl>https://github.com/siteserver/SS.Login</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes></PackageReleaseNotes>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="SiteServer.Plugin, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\SiteServer.Plugin.2.1.0\lib\net45\SiteServer.Plugin.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+    <PackageReference Include="SiteServer.Plugin" Version="2.3.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Controllers\ActionsController.cs" />
-    <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\SettingsController.cs" />
-    <Compile Include="Core\CacheUtils.cs" />
-    <Compile Include="Core\QqClient.cs" />
-    <Compile Include="Core\ApiUtils.cs" />
-    <Compile Include="Core\Utils.cs" />
-    <Compile Include="Core\WeiboClient.cs" />
-    <Compile Include="Core\WeixinClient.cs" />
-    <Compile Include="LoginPlugin.cs" />
-    <Compile Include="Core\Models\ConfigInfo.cs" />
-    <Compile Include="Core\Models\OAuthInfo.cs" />
-    <Compile Include="Core\Models\OAuthType.cs" />
-    <Compile Include="Core\Parse\StlLogin.cs" />
-    <Compile Include="Core\Parse\ParseUtils.cs" />
-    <Compile Include="Core\Parse\StlRegister.cs" />
-    <Compile Include="Core\Parse\StlLogout.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Core\Provider\OAuthDao.cs" />
+    <Content Include="assets\**" />
+    <Content Include="pages\**" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="assets\fonts\fontawesome-webfont.eot" />
-    <None Include="assets\fonts\fontawesome-webfont.ttf" />
-    <None Include="assets\fonts\fontawesome-webfont.woff" />
-    <None Include="assets\fonts\fontawesome-webfont.woff2" />
-    <None Include="assets\fonts\FontAwesome.otf" />
-    <None Include="docs\background.md" />
-    <None Include="docs\foreground.md" />
-    <None Include="docs\install.md" />
-    <None Include="docs\README.md" />
-    <None Include="docs\_sidebar.md" />
-    <None Include="packages.config" />
-    <None Include="SS.Login.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="assets\cleanslate.css" />
-    <Content Include="assets\cleanslate.min.css" />
-    <Content Include="assets\css\bootstrap.min.css" />
-    <Content Include="assets\css\font-awesome-4.7.0.min.css" />
-    <Content Include="assets\css\siteserver.min.css" />
-    <Content Include="assets\fonts\fontawesome-webfont.svg" />
-    <Content Include="assets\images\loading.gif" />
-    <Content Include="assets\images\login_qq.png" />
-    <Content Include="assets\images\login_weibo.png" />
-    <Content Include="assets\images\login_weixin.png" />
-    <Content Include="assets\images\times.png" />
-    <Content Include="assets\js\axios-0.17.1.min.js" />
-    <Content Include="assets\js\device.min.js" />
-    <Content Include="assets\js\es6-promise.auto.min.js" />
-    <Content Include="assets\js\jquery.min.js" />
-    <Content Include="assets\js\sweetalert.min.js" />
-    <Content Include="assets\js\utils.js" />
-    <Content Include="assets\js\vee-validate-2.0.3.js" />
-    <Content Include="assets\js\vue-2.1.10.min.js" />
-    <Content Include="assets\lib\axios-0.18.0.min.js" />
-    <Content Include="assets\lib\es6-promise.auto.min.js" />
-    <Content Include="assets\lib\jquery-1.9.1.min.js" />
-    <Content Include="assets\lib\layer-3.1.1\layer.js" />
-    <Content Include="assets\lib\layer-3.1.1\mobile\layer.js" />
-    <Content Include="assets\lib\layer-3.1.1\mobile\need\layer.css" />
-    <Content Include="assets\lib\layer-3.1.1\theme\default\icon-ext.png" />
-    <Content Include="assets\lib\layer-3.1.1\theme\default\icon.png" />
-    <Content Include="assets\lib\layer-3.1.1\theme\default\layer.css" />
-    <Content Include="assets\lib\layer-3.1.1\theme\default\loading-0.gif" />
-    <Content Include="assets\lib\layer-3.1.1\theme\default\loading-1.gif" />
-    <Content Include="assets\lib\layer-3.1.1\theme\default\loading-2.gif" />
-    <Content Include="assets\lib\lodash-4.17.10.min.js" />
-    <Content Include="assets\lib\md5-2.10.0.min.js" />
-    <Content Include="assets\lib\sweetalert2-7.28.4.all.min.js" />
-    <Content Include="assets\lib\vee-validate-2.1.0.js" />
-    <Content Include="assets\lib\vee-validate-locale-zh_CN-2.1.0.js" />
-    <Content Include="assets\lib\vue-2.5.16.min.js" />
-    <Content Include="assets\script.js" />
-    <Content Include="assets\style.css" />
-    <Content Include="assets\template.html" />
-    <Content Include="docs\assets\background\01.png" />
-    <Content Include="docs\assets\background\02.png" />
-    <Content Include="docs\assets\background\03.png" />
-    <Content Include="docs\assets\favicon.png" />
-    <Content Include="docs\assets\install\01.png" />
-    <Content Include="docs\assets\install\02.png" />
-    <Content Include="docs\assets\install\03.png" />
-    <Content Include="docs\assets\install\04.png" />
-    <Content Include="docs\index.html" />
-    <Content Include="docs\logo.svg" />
-    <Content Include="pages\settings.html" />
-    <Content Include="pages\settings.js" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>

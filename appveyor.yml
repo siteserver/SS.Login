@@ -4,15 +4,16 @@
       - master
 
   version: 1.1.{build}
+  image: Visual Studio 2017
 
-  assembly_info:
+  dotnet_csproj:
     patch: true
-    file: AssemblyInfo.*
+    file: '**\*.csproj'
+    version: '{version}'
+    package_version: '{version}'
     assembly_version: '{version}'
-    assembly_file_version: '{version}'
-    assembly_informational_version: '{version}'
-
-  platform: Any CPU
+    file_version: '{version}'
+    informational_version: '{version}'
 
   configuration:
     - Release
@@ -26,14 +27,11 @@
     - packages -> **\packages.config
 
   before_build:
-    - nuget restore SS.Login.sln
+    - dotnet restore SS.Login.sln
 
   build:
     project: SS.Login.sln # path to Visual Studio solution or project
     publish_nuget: true
-
-  artifacts:
-    - path: '*.nupkg'
 
   deploy:
     provider: NuGet
@@ -50,15 +48,16 @@
       - dev
 
   version: 1.1.{build}-beta
+  image: Visual Studio 2017
 
-  assembly_info:
+  dotnet_csproj:
     patch: true
-    file: AssemblyInfo.*
+    file: '**\*.csproj'
+    version: '{version}'
+    package_version: '{version}'
     assembly_version: '{version}'
-    assembly_file_version: '{version}'
-    assembly_informational_version: '{version}'
-
-  platform: Any CPU
+    file_version: '{version}'
+    informational_version: '{version}'
 
   configuration:
     - Release
@@ -72,14 +71,11 @@
     - packages -> **\packages.config
 
   before_build:
-    - nuget restore SS.Login.sln
+    - dotnet restore SS.Login.sln
 
   build:
     project: SS.Login.sln # path to Visual Studio solution or project
     publish_nuget: true
-
-  artifacts:
-    - path: '*.nupkg'
 
   deploy:
     provider: NuGet

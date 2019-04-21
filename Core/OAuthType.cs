@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SS.Login.Core.Models
+namespace SS.Login.Core
 {
     public class OAuthType : IEquatable<OAuthType>, IComparable<OAuthType>
     {

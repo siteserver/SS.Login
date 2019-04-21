@@ -1,13 +1,9 @@
-﻿using System.Web;
-using SiteServer.Plugin;
+﻿using SiteServer.Plugin;
 using SS.Login.Core;
-using SS.Login.Core.Models;
-using SS.Login.Core.Parse;
-using SS.Login.Core.Provider;
 
 namespace SS.Login
 {
-    public class LoginPlugin : PluginBase
+    public class Plugin : PluginBase
     {
         public const string PluginId = "SS.Login";
 
@@ -29,10 +25,14 @@ namespace SS.Login
             return false;
         }
 
+        public static OAuthRepository OAuthRepository { get; set; }
+
         public override void Startup(IService service)
         {
+            OAuthRepository = new OAuthRepository();
+
             service
-                .AddDatabaseTable(OAuthDao.TableName, OAuthDao.Columns)
+                .AddDatabaseTable(OAuthRepository.TableName, OAuthRepository.TableColumns)
                 .AddStlElementParser(StlLogin.ElementName, StlLogin.Parse)
                 .AddStlElementParser(StlLogout.ElementName, StlLogout.Parse)
                 .AddStlElementParser(StlRegister.ElementName, StlRegister.Parse)
