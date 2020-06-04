@@ -33,7 +33,7 @@
     methods: {
       registerSubmit: function () {
         var $this = this;
-        this.$validator.validateAll('register_form').then((result) => {
+        this.$validator.validateAll('register_form').then(function(result) {
           if (result) {
             $this.apiRegister();
           }
@@ -51,7 +51,7 @@
       },
       loginSubmit: function () {
         var $this = this;
-        this.$validator.validateAll('login_form').then((result) => {
+        this.$validator.validateAll('login_form').then(function(result) {
           if (result) {
             $this.apiLogin();
           }
